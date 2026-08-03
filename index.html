@@ -399,6 +399,216 @@
   @media (prefers-reduced-motion: reduce){
     .settle, .draw-btn.spin svg{ animation: none !important; }
   }
+
+  /* ---------- guide buttons ---------- */
+  .guide-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    width:100%;
+  }
+  .guide-btn{
+    appearance:none;
+    cursor:pointer;
+    border: 1px solid var(--line);
+    background: #FBFAF6;
+    color: var(--ink);
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 999px;
+    padding: 10px 16px;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
+  }
+  .guide-btn svg{ width:14px; height:14px; flex-shrink:0; }
+  .guide-btn .guide-en{ color: var(--ink-soft); font-size:11px; }
+  .guide-btn:hover{ transform: translateY(-1px); border-color: var(--ink-soft); background:#fff; }
+
+  /* ---------- feedback box ---------- */
+  .feedback-card{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    padding: 18px 18px 16px;
+    background: #FBFAF6;
+    border: 1.5px dashed var(--line);
+    border-radius: 14px;
+  }
+  .feedback-label{
+    font-size: 11px;
+    font-weight:600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .feedback-input{
+    width:100%;
+    min-height: 70px;
+    resize: vertical;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink);
+    background: #fff;
+  }
+  .feedback-input:focus{ outline:none; border-color: var(--ink-soft); }
+  .feedback-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .feedback-status{
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .feedback-btn{
+    appearance:none;
+    border:none;
+    cursor:pointer;
+    background: var(--ink);
+    color: var(--paper);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 13px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    transition: transform 0.15s ease, opacity 0.2s ease;
+  }
+  .feedback-btn:hover{ transform: translateY(-1px); }
+  .feedback-btn:disabled{ opacity:0.5; cursor:default; transform:none; }
+
+  /* ---------- modals ---------- */
+  .modal-overlay{
+    position:fixed;
+    inset:0;
+    background: rgba(38,50,41,0.45);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding: 20px;
+    z-index: 50;
+  }
+  .modal-overlay.show{ display:flex; }
+
+  .modal-box{
+    background: #FBFAF6;
+    border-radius: 16px;
+    border: 1.5px solid var(--line);
+    max-width: 480px;
+    width:100%;
+    max-height: 82vh;
+    overflow-y: auto;
+    padding: 30px 26px 26px;
+    position: relative;
+    box-shadow: 0 12px 40px rgba(38,50,41,0.18);
+  }
+
+  .invite-box{ text-align:center; max-width: 380px; }
+  .invite-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 22px;
+    color: var(--hist);
+    margin-bottom: 14px;
+  }
+  .invite-line{
+    font-size: 15px;
+    margin: 6px 0;
+    color: var(--ink);
+  }
+  .invite-line-zh{
+    font-family:'Noto Serif SC', serif;
+    font-size: 15px;
+    font-weight:600;
+    margin: 6px 0 22px;
+    color: var(--ink);
+  }
+  .modal-close-btn{
+    appearance:none;
+    border:none;
+    cursor:pointer;
+    background: var(--ink);
+    color: var(--paper);
+    font-family:'Space Grotesk', sans-serif;
+    font-weight: 500;
+    font-size: 13.5px;
+    padding: 11px 24px;
+    border-radius: 999px;
+    transition: transform 0.15s ease;
+  }
+  .modal-close-btn:hover{ transform: translateY(-1px); }
+
+  .modal-x{
+    position:absolute;
+    top:14px;
+    right:14px;
+    appearance:none;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink-soft);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+  }
+  .modal-x svg{ width:13px; height:13px; }
+  .modal-x:hover{ color: var(--ink); border-color: var(--ink-soft); }
+
+  .guide-box h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size: 21px;
+    margin: 0 0 4px;
+    padding-right: 30px;
+  }
+  .guide-box .guide-sub{
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+  .guide-box h3{
+    font-family:'Space Grotesk', sans-serif;
+    font-size: 13px;
+    font-weight:600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--socio);
+    margin: 20px 0 8px;
+  }
+  .guide-box h3:first-of-type{ margin-top: 4px; }
+  .guide-box ul{
+    margin: 0 0 4px;
+    padding-left: 18px;
+  }
+  .guide-box li{
+    margin-bottom: 8px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink);
+  }
+  .guide-box li b{ font-weight:600; }
+  .guide-box li .zh{
+    color: var(--ink-soft);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12.5px;
+  }
+  .guide-box p{
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0 0 10px;
+  }
+  .guide-box a{ color: var(--hist); }
 </style>
 </head>
 <body>
@@ -471,8 +681,52 @@
     <span><i class="dot" style="background:var(--socio)"></i>Sociology</span>
   </div>
 
-  <div class="credit">Designed by Sarah艺婕</div>
+  <div class="guide-row">
+    <button class="guide-btn" data-guide="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      检索指南 <span class="guide-en">Research</span>
+    </button>
+    <button class="guide-btn" data-guide="speak">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19v3"/><path d="M8 22h8"/><rect x="8" y="2" width="8" height="12" rx="4"/><path d="M18 10a6 6 0 0 1-12 0"/></svg>
+      表达指南 <span class="guide-en">Speak</span>
+    </button>
+    <button class="guide-btn" data-guide="notes">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/></svg>
+      笔记指南 <span class="guide-en">Notes</span>
+    </button>
+  </div>
 
+  <div class="feedback-card">
+    <div class="feedback-label">Feedback · 意见反馈</div>
+    <textarea id="feedbackInput" class="feedback-input" placeholder="有什么想法、bug 或者建议都可以写在这里…"></textarea>
+    <div class="feedback-row">
+      <span class="feedback-status" id="feedbackStatus"></span>
+      <button class="feedback-btn" id="feedbackBtn">Send · 发送</button>
+    </div>
+  </div>
+
+  <div class="credit">Built by Sarah艺婕 · 全平台同名</div>
+
+</div>
+
+<!-- Invite-only gate -->
+<div class="modal-overlay" id="inviteOverlay">
+  <div class="modal-box invite-box">
+    <div class="invite-title">Beta · 内测</div>
+    <p class="invite-line">This is an invite-only beta.</p>
+    <p class="invite-line-zh">请勿转给其他人</p>
+    <button class="modal-close-btn" id="inviteCloseBtn">我知道了 · Got it</button>
+  </div>
+</div>
+
+<!-- Guide modal -->
+<div class="modal-overlay" id="guideOverlay">
+  <div class="modal-box guide-box">
+    <button class="modal-x" id="guideCloseBtn" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+    </button>
+    <div id="guideContent"></div>
+  </div>
 </div>
 
 <script>
@@ -964,6 +1218,133 @@ timerResetBtn.addEventListener('click', () => {
 
 updateRing();
 updateControls();
+
+/* ---------- Invite-only gate ---------- */
+const inviteOverlay = document.getElementById('inviteOverlay');
+const inviteCloseBtn = document.getElementById('inviteCloseBtn');
+
+window.addEventListener('load', () => {
+  inviteOverlay.classList.add('show');
+});
+inviteCloseBtn.addEventListener('click', () => {
+  inviteOverlay.classList.remove('show');
+});
+
+/* ---------- Guides ---------- */
+const guideOverlay = document.getElementById('guideOverlay');
+const guideContent = document.getElementById('guideContent');
+const guideCloseBtn = document.getElementById('guideCloseBtn');
+
+const guides = {
+  search: {
+    title: '检索指南',
+    sub: 'Research · 怎么找到靠谱的文献',
+    html: `
+      <h3>常用数据库 · Databases</h3>
+      <ul>
+        <li><b>中国知网 CNKI</b> <span class="zh">— 中文文献最全，适合找中国相关案例和本土研究</span></li>
+        <li><b>Google Scholar</b> <span class="zh">— 英文文献首选，能看引用次数和相关文章</span></li>
+        <li><b>JSTOR</b> <span class="zh">— 人文社科经典期刊，历史/社会学论文多</span></li>
+        <li><b>SSRN</b> <span class="zh">— 经济/金融/法律的工作论文，很多是最新研究</span></li>
+        <li><b>Semantic Scholar</b> <span class="zh">— 能自动生成论文摘要，找相关文献很快</span></li>
+        <li><b>PubMed</b> <span class="zh">— 心理学/医学相关实证研究</span></li>
+      </ul>
+      <h3>检索小技巧 · Tips</h3>
+      <ul>
+        <li>用<b>关键词 + 同义词</b>多试几次，比如 "nudge" 也搜 "behavioral intervention"</li>
+        <li>善用<b>引号</b>精确搜索完整短语，比如 "loss aversion"</li>
+        <li>看到一篇好文章，点开它的 <b>"Cited by"</b>，能找到更新、更相关的后续研究</li>
+        <li>反过来看它的<b>参考文献列表</b>，能找到这个领域的经典源头论文</li>
+        <li>先读<b>摘要和结论</b>，判断是否值得细读全文，别一上来就读全文</li>
+        <li>优先找<b>近5年</b>发表、引用量较高的文章，权威性更有保障</li>
+        <li>用 <b>Zotero / Notion</b> 之类工具随手保存文献和笔记，别等最后一起整理</li>
+      </ul>
+    `
+  },
+  speak: {
+    title: '表达指南',
+    sub: 'Speak · 即兴表达前的准备',
+    html: `
+      <h3>心态 · Mindset</h3>
+      <ul>
+        <li>即兴不是"完美"，而是<b>清晰 + 冷静</b>。停顿一秒也没关系，比语无伦次好</li>
+        <li>深呼吸，慢下来，说话速度比你以为的"正常"再慢一点</li>
+      </ul>
+      <h3>15分钟准备时间怎么用 · Using the 15min prep</h3>
+      <ul>
+        <li>先花 <b>2-3分钟</b>确定你的核心论点（一句话说清楚你要讲什么）</li>
+        <li>列出 <b>2-3个支撑点</b>，每个配一个例子或数据</li>
+        <li>最后 <b>2-3分钟</b>小声练习开头和结尾，其余时间打腹稿即可，不用逐字背</li>
+      </ul>
+      <h3>结构模板 · Structure</h3>
+      <ul>
+        <li><b>开场 Hook</b> <span class="zh">— 一个问题/数据/小故事抓住注意力</span></li>
+        <li><b>核心论点 Thesis</b> <span class="zh">— 一句话说明你的立场或角度</span></li>
+        <li><b>主体 2-3点</b> <span class="zh">— 每点：论点 → 解释 → 例子/证据</span></li>
+        <li><b>过渡词</b> <span class="zh">— "此外 / 更重要的是 / 与此同时"让结构听起来更顺</span></li>
+        <li><b>结尾 Close</b> <span class="zh">— 呼应开头，用一句话总结你的立场</span></li>
+      </ul>
+    `
+  },
+  notes: {
+    title: '笔记指南',
+    sub: 'Notes · 怎么读文献做笔记',
+    html: `
+      <h3>原则 · Principles</h3>
+      <ul>
+        <li><b>简洁</b>：不要抄整段，用<b>关键词/短语</b>记录，能一眼看懂就够了</li>
+        <li><b>结构化</b>：每篇文献固定几个字段，方便以后快速回顾对比</li>
+      </ul>
+      <h3>建议的笔记字段 · Suggested fields</h3>
+      <ul>
+        <li><b>作者/年份</b> <span class="zh">— 方便引用和查找</span></li>
+        <li><b>核心发现</b> <span class="zh">— 一到两句话，用自己的话概括，别照抄</span></li>
+        <li><b>研究方法</b> <span class="zh">— 实验/问卷/案例分析，简单标注即可</span></li>
+        <li><b>和我的主题的关系</b> <span class="zh">— 这篇文章能支持我哪个论点</span></li>
+        <li><b>一句可用的转述</b> <span class="zh">— 如果观点很关键，用自己的话转述一遍，需要引用原文时标好页码</span></li>
+      </ul>
+      <h3>小提醒 · Reminders</h3>
+      <ul>
+        <li>用<b>项目符号</b>而不是完整段落，节省之后复习的时间</li>
+        <li>能转述就转述，减少直接复制粘贴，也更符合学术诚信</li>
+        <li>读完一批文献后，试着把笔记按<b>论点</b>归类，而不是按文章归类，写作时更好用</li>
+      </ul>
+    `
+  }
+};
+
+document.querySelectorAll('.guide-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const g = guides[btn.dataset.guide];
+    if(!g) return;
+    guideContent.innerHTML = '<h2>' + g.title + '</h2><p class="guide-sub">' + g.sub + '</p>' + g.html;
+    guideOverlay.classList.add('show');
+  });
+});
+guideCloseBtn.addEventListener('click', () => guideOverlay.classList.remove('show'));
+guideOverlay.addEventListener('click', (e) => {
+  if(e.target === guideOverlay) guideOverlay.classList.remove('show');
+});
+inviteOverlay.addEventListener('click', (e) => {
+  if(e.target === inviteOverlay) inviteOverlay.classList.remove('show');
+});
+
+/* ---------- Feedback (mailto, no backend) ---------- */
+const feedbackInput = document.getElementById('feedbackInput');
+const feedbackBtn = document.getElementById('feedbackBtn');
+const feedbackStatus = document.getElementById('feedbackStatus');
+
+feedbackBtn.addEventListener('click', () => {
+  const msg = feedbackInput.value.trim();
+  if(!msg){
+    feedbackStatus.textContent = '写点什么再发送吧 · Write something first';
+    return;
+  }
+  const subject = encodeURIComponent('Word Bubble Feedback · 表达泡泡反馈');
+  const body = encodeURIComponent(msg + '\n\n— sent from Word Bubble beta');
+  window.location.href = 'mailto:sarahliyj23@gmail.com?subject=' + subject + '&body=' + body;
+  feedbackStatus.textContent = '已打开邮件客户端 · Opening your email app…';
+});
 
 </script>
 
