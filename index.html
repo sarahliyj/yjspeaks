@@ -3,23 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="YJ Speaks — 一个温柔、双语的成长学习空间。">
+  <meta name="description" content="YJ Speaks — 一个双语的表达、思考与成长学习空间。">
   <title>YJ Speaks · 解锁你的无限潜能</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #22352c;
-      --muted: #607067;
-      --cream: #fbf8ef;
-      --paper: #f3eee1;
-      --line: rgba(34, 53, 44, .15);
-      --coral: #e37f69;
-      --yellow: #f0c95e;
-      --lavender: #c5b6e5;
-      --mint: #9ecbb1;
-      --blue: #9ec6db;
+      --ink: #1e2523;
+      --muted: #6e746f;
+      --cream: #faf9f5;
+      --paper: #eeece5;
+      --line: rgba(30, 37, 35, .14);
+      --accent: #aa5949;
+      --accent-soft: #e9dbd2;
+      --moss: #789184;
     }
 
     * { box-sizing: border-box; }
@@ -29,10 +27,7 @@
       min-width: 320px;
       color: var(--ink);
       font-family: "DM Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
-      background:
-        radial-gradient(circle at 10% 10%, rgba(240, 201, 94, .22), transparent 24rem),
-        radial-gradient(circle at 92% 75%, rgba(158, 203, 177, .28), transparent 27rem),
-        var(--paper);
+      background: var(--paper);
     }
     button, a { font: inherit; }
     a { color: inherit; text-decoration: none; }
@@ -42,13 +37,12 @@
       position: fixed; inset: 0 auto 0 0; z-index: 10;
       width: 250px; padding: 30px 18px 22px;
       display: flex; flex-direction: column;
-      background: rgba(251, 248, 239, .8); border-right: 1px solid var(--line);
-      backdrop-filter: blur(14px);
+      background: var(--cream); border-right: 1px solid var(--line);
     }
     .brand { display: flex; align-items: center; gap: 11px; padding: 6px 10px 30px; }
     .brand-mark {
-      width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px;
-      background: var(--ink); color: var(--yellow); transform: rotate(-5deg);
+      width: 34px; height: 34px; display: grid; place-items: center; border-radius: 7px;
+      background: var(--ink); color: var(--cream);
       transform: none; font-family: "DM Sans", sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .04em;
     }
     .brand-name { line-height: 1.02; }
@@ -61,68 +55,59 @@
       color: var(--muted); font-size: 14px; transition: background .2s ease, color .2s ease, transform .2s ease;
     }
     .nav a:hover { transform: translateX(3px); color: var(--ink); background: rgba(255,255,255,.55); }
-    .nav a.active { color: var(--ink); background: #fffdf7; box-shadow: 0 5px 18px rgba(36, 52, 43, .06); }
+    .nav a.active { color: var(--ink); background: #f0eee7; box-shadow: none; }
     .nav-icon { width: 19px; height: 19px; flex: 0 0 19px; }
-    .tag { margin-left: auto; padding: 3px 6px; border-radius: 99px; background: #e8e2d2; color: #7a766b; font: 500 9px "DM Sans", sans-serif; }
+    .tag { margin-left: auto; padding: 3px 6px; border-radius: 4px; background: #e8e4dc; color: #7a766b; font: 500 9px "DM Sans", sans-serif; }
     .sidebar-bottom { margin-top: auto; padding: 16px 10px 4px; color: var(--muted); border-top: 1px solid var(--line); font-size: 12px; line-height: 1.5; }
     .sidebar-bottom span { display: block; margin-top: 3px; font-size: 11px; }
 
     main { grid-column: 2; padding: 26px clamp(24px, 5vw, 76px) 56px; max-width: 1450px; width: 100%; margin: 0 auto; }
     .topbar { display: flex; justify-content: flex-end; align-items: center; min-height: 36px; }
     .today { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 12px; }
-    .today i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--coral); }
+    .today i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
 
-    .hero { position: relative; min-height: 470px; display: grid; align-items: center; grid-template-columns: minmax(0, 1fr) minmax(270px, .72fr); gap: 54px; padding: 72px 6% 60px; overflow: hidden; }
-    .hero::before { content: ""; position: absolute; inset: 15% 4% 8% 38%; background: #f7eac4; border-radius: 47% 53% 44% 56% / 58% 40% 60% 42%; transform: rotate(-7deg); z-index: -1; }
-    .eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 20px; color: #b96552; font: 500 11px "DM Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .hero { min-height: 470px; display: grid; align-items: center; grid-template-columns: minmax(0, 1fr) minmax(270px, .72fr); gap: 54px; padding: 72px 6% 60px; border-bottom: 1px solid var(--line); }
+    .eyebrow { display: flex; align-items: center; gap: 9px; margin-bottom: 20px; color: var(--accent); font: 600 11px "DM Sans", sans-serif; letter-spacing: .12em; text-transform: uppercase; }
     .eyebrow::before { content: ""; width: 28px; height: 1px; background: currentColor; }
     h1 { max-width: 700px; margin: 0; font-family: "Playfair Display", "Noto Serif SC", serif; font-size: clamp(48px, 6.5vw, 86px); line-height: .95; letter-spacing: -.06em; font-weight: 600; }
-    h1 em { color: #cc6e5a; font-style: italic; }
+    h1 em { color: var(--accent); font-style: italic; }
     .hero-cn { margin: 25px 0 10px; font-size: clamp(22px, 2.6vw, 31px); font-weight: 600; letter-spacing: .04em; }
     .hero-copy { max-width: 460px; margin: 0; color: var(--muted); font-size: 15px; line-height: 1.8; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; margin-top: 30px; }
-    .button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 18px; border: 1px solid transparent; border-radius: 99px; font-size: 13px; font-weight: 600; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
+    .button { display: inline-flex; align-items: center; gap: 9px; padding: 13px 18px; border: 1px solid transparent; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; transition: transform .2s ease, box-shadow .2s ease; }
     .button:hover { transform: translateY(-2px); }
-    .button.primary { background: var(--ink); color: var(--cream); box-shadow: 0 8px 18px rgba(34,53,44,.18); }
-    .button.secondary { border-color: var(--line); background: rgba(255,255,255,.45); color: var(--ink); }
+    .button.primary { background: var(--ink); color: var(--cream); box-shadow: none; }
+    .button.secondary { border-color: var(--line); background: transparent; color: var(--ink); }
     .button svg { width: 15px; height: 15px; }
 
-    .orbit { position: relative; width: min(100%, 360px); aspect-ratio: 1; margin: auto; }
-    .sun { position: absolute; inset: 23%; border-radius: 50%; background: var(--coral); box-shadow: 13px 13px 0 rgba(34,53,44,.08); }
-    .sun::after { content: "✦"; position: absolute; inset: 0; display: grid; place-items: center; color: #fff8e9; font-size: 55px; transform: rotate(12deg); }
-    .orbit-line { position: absolute; inset: 5%; border: 1px dashed rgba(34,53,44,.3); border-radius: 50%; transform: rotate(-20deg); }
-    .planet { position: absolute; display: grid; place-items: center; border-radius: 50%; color: var(--ink); box-shadow: 5px 5px 0 rgba(34,53,44,.09); }
-    .planet.a { top: 4%; right: 19%; width: 54px; height: 54px; background: var(--lavender); transform: rotate(16deg); font-size: 26px; }
-    .planet.b { bottom: 7%; left: 4%; width: 72px; height: 72px; background: var(--mint); transform: rotate(-8deg); font-family: "DM Sans", sans-serif; font-weight: 600; font-size: 26px; }
-    .planet.c { right: 2%; bottom: 17%; width: 38px; height: 38px; background: var(--yellow); font-size: 17px; }
-    .spark { position: absolute; color: #ba6755; font-size: 24px; }
-    .spark.one { left: 12%; top: 19%; } .spark.two { right: 4%; top: 30%; font-size: 16px; }
+    .practice-index { width: min(100%, 340px); margin: auto; border: 1px solid var(--line); background: rgba(250,249,245,.56); }
+    .practice-index header { padding: 18px 20px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+    .practice-row { display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 12px; padding: 21px 20px; border-bottom: 1px solid var(--line); }
+    .practice-row:last-child { border-bottom: 0; }
+    .practice-row b { font-size: 13px; letter-spacing: .02em; }
+    .practice-row span { color: var(--muted); font-size: 12px; }
+    .practice-row small { color: var(--accent); font-size: 10px; letter-spacing: .08em; }
 
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 16px 0 20px; }
     .section-heading h2 { margin: 0; font: 600 28px "DM Sans", sans-serif; letter-spacing: -.04em; }
     .section-heading p { margin: 0; color: var(--muted); font-size: 13px; }
     .tool-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 17px; }
-    .tool-card { position: relative; min-height: 250px; padding: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,253,247,.7); transition: transform .25s ease, box-shadow .25s ease; }
-    a.tool-card:hover { transform: translateY(-5px) rotate(-.2deg); box-shadow: 0 14px 30px rgba(34,53,44,.1); }
-    .tool-card .number { color: var(--muted); font: 11px "DM Mono", monospace; }
+    .tool-card { position: relative; min-height: 250px; padding: 24px; overflow: hidden; border: 1px solid var(--line); border-radius: 8px; background: rgba(250,249,245,.7); transition: transform .25s ease, box-shadow .25s ease; }
+    a.tool-card:hover { transform: translateY(-4px); box-shadow: 0 14px 30px rgba(34,53,44,.08); }
+    .tool-card .number { color: var(--muted); font: 600 10px "DM Sans", sans-serif; letter-spacing: .1em; }
     .tool-card h3 { position: relative; margin: 44px 0 8px; font: 600 23px "DM Sans", sans-serif; letter-spacing: -.04em; }
     .tool-card p { position: relative; max-width: 220px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.65; }
     .tool-card .card-zh { display: block; margin-top: 4px; color: var(--ink); font-size: 14px; }
-    .card-arrow { position: absolute; right: 22px; bottom: 20px; width: 35px; height: 35px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: white; transition: transform .2s ease; }
-    .tool-card:hover .card-arrow { transform: rotate(45deg); }
-    .card-art { position: absolute; right: -5px; top: 13px; opacity: .9; }
-    .garden { background: linear-gradient(145deg, rgba(202,229,212,.9), rgba(255,253,247,.75)); }
-    .garden .card-art { width: 94px; height: 94px; border: 2px solid var(--ink); border-radius: 48% 52% 43% 57%; transform: rotate(15deg); }
-    .garden .card-art::before { content: ""; position: absolute; width: 42px; height: 61px; top: 14px; left: 23px; border-radius: 90% 0 90% 0; background: var(--coral); transform: rotate(-35deg); }
-    .garden .card-art::after { content: ""; position: absolute; width: 12px; height: 46px; top: 49px; left: 39px; background: var(--ink); border-radius: 99px; transform: rotate(-35deg); }
-    .soon { background: rgba(255,253,247,.62); }
-    .soon::after { content: ""; position: absolute; width: 130px; height: 130px; right: -36px; top: -34px; border-radius: 50%; background: var(--blue); opacity: .52; }
-    .soon.reflection::after { background: var(--lavender); }
+    .card-arrow { position: absolute; right: 22px; bottom: 20px; width: 35px; height: 35px; display: grid; place-items: center; border-radius: 6px; background: var(--ink); color: white; transition: transform .2s ease; }
+    .tool-card:hover .card-arrow { transform: translateX(3px); }
+    .garden { background: linear-gradient(145deg, #e2ebe4, rgba(250,249,245,.8)); }
+    .reflection { background: linear-gradient(145deg, var(--accent-soft), rgba(250,249,245,.8)); }
+    .soon { background: rgba(250,249,245,.62); }
     .soon .badge { position: absolute; right: 18px; top: 17px; padding: 5px 8px; border: 1px solid rgba(34,53,44,.16); border-radius: 99px; color: var(--muted); background: rgba(255,255,255,.5); font: 500 9px "DM Sans", sans-serif; letter-spacing: .04em; }
     .soon .card-arrow { background: #e3ddd0; color: #76736a; }
 
     .note { display: flex; align-items: center; gap: 15px; margin-top: 34px; padding: 19px 21px; border: 1px dashed rgba(34,53,44,.28); border-radius: 16px; color: var(--muted); background: rgba(255,255,255,.3); font-size: 13px; line-height: 1.55; }
-    .note-mark { width: 31px; height: 31px; display: grid; flex: 0 0 31px; place-items: center; border-radius: 50%; background: var(--yellow); color: var(--ink); font-size: 17px; }
+    .note-mark { width: 31px; height: 31px; display: grid; flex: 0 0 31px; place-items: center; border-radius: 5px; background: var(--accent-soft); color: var(--accent); font-size: 17px; }
 
     .footer { margin-top: 72px; padding-top: 18px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 18px; color: var(--muted); font-size: 11px; }
     .mobile-brand { display: none; }
@@ -138,9 +123,8 @@
       .mobile-nav svg { width: 17px; height: 17px; }
       .topbar { display: none; }
       .hero { min-height: auto; grid-template-columns: 1fr; gap: 20px; padding: 64px 5% 48px; }
-      .hero::before { inset: 36% -8% 5% 15%; }
       .hero-text { position: relative; z-index: 1; }
-      .orbit { width: 240px; margin-top: -20px; }
+      .practice-index { width: 100%; margin-top: 6px; }
       .tool-grid { grid-template-columns: 1fr; }
       .tool-card { min-height: 215px; }
       .footer { margin-top: 48px; }
@@ -162,21 +146,21 @@
     <aside class="sidebar" aria-label="主导航">
       <a class="brand" href="index.html" aria-label="YJ Speaks 首页">
         <span class="brand-mark">YJ</span>
-        <span class="brand-name"><strong>YJ Speaks</strong><span>learn with wonder</span></span>
+        <span class="brand-name"><strong>YJ Speaks</strong><span>learn with intention</span></span>
       </a>
       <p class="nav-label">学习空间 · Studio</p>
       <nav class="nav">
         <a class="active" href="index.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-8h6v8"/></svg>首页 <span>Home</span></a>
         <a href="word-garden.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11c-5 0-7-3-7-7 4 0 7 2 7 7Z"/><path d="M12 15c4.7 0 7-2.3 7-6-3.8 0-7 1.8-7 6Z"/></svg>词汇花园 <span>Word Garden</span></a>
-        <a href="#coming-soon"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>日记反思 <span>Diary</span><small class="tag">soon</small></a>
+        <a href="diary-reflections.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>日记反思 <span>Diary</span></a>
         <a href="#coming-soon"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>阅读材料 <span>Reading</span><small class="tag">soon</small></a>
       </nav>
-      <div class="sidebar-bottom">慢慢来，也很好。<span>Grow at your own pace.</span></div>
+      <div class="sidebar-bottom">清醒思考，稳定行动。<span>Think clearly. Act steadily.</span></div>
     </aside>
 
     <main>
       <div class="mobile-brand">
-        <a class="brand" href="index.html"><span class="brand-mark">YJ</span><span class="brand-name"><strong>YJ Speaks</strong><span>learn with wonder</span></span></a>
+        <a class="brand" href="index.html"><span class="brand-mark">YJ</span><span class="brand-name"><strong>YJ Speaks</strong><span>learn with intention</span></span></a>
         <nav class="mobile-nav" aria-label="快捷导航">
           <a href="word-garden.html" title="词汇花园"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V11"/><path d="M12 11c-5 0-7-3-7-7 4 0 7 2 7 7Z"/><path d="M12 15c4.7 0 7-2.3 7-6-3.8 0-7 1.8-7 6Z"/></svg></a>
         </nav>
@@ -185,38 +169,43 @@
 
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-text">
-          <p class="eyebrow">A softer way to grow</p>
+          <p class="eyebrow">A practice for deliberate growth</p>
           <h1 id="hero-title">Unlock your<br><em>full potential.</em></h1>
           <p class="hero-cn">解锁你的无限潜能</p>
-          <p class="hero-copy">一个为好奇心、表达力与内在成长而生的双语学习空间。用一点点轻盈的练习，走向更自在的自己。</p>
+          <p class="hero-copy">一个为表达力、清晰思考与长期成长而生的双语学习空间。用可重复的练习，把潜力转化为能力。</p>
           <div class="hero-actions">
             <a class="button primary" href="word-garden.html">开始探索 <span>Begin exploring</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="button secondary" href="#tools">看看学习工具 <span>Our tools</span></a>
           </div>
         </div>
-        <div class="orbit" aria-hidden="true"><div class="orbit-line"></div><div class="sun"></div><div class="planet a">✿</div><div class="planet b">学</div><div class="planet c">✦</div><span class="spark one">✦</span><span class="spark two">✦</span></div>
+        <div class="practice-index" aria-label="YJ Speaks 学习方法">
+          <header>YJ Speaks / Practice Index</header>
+          <div class="practice-row"><small>01</small><div><b>Speak</b><span> · 表达练习</span></div><small>VOICE</small></div>
+          <div class="practice-row"><small>02</small><div><b>Reflect</b><span> · 深度复盘</span></div><small>CLARITY</small></div>
+          <div class="practice-row"><small>03</small><div><b>Read</b><span> · 观点输入</span></div><small>RANGE</small></div>
+        </div>
       </section>
 
       <section id="tools" aria-labelledby="tools-title">
-        <div class="section-heading"><div><h2 id="tools-title">Your learning studio</h2><p>你的学习工具箱</p></div><p>Small practices, meaningful growth.</p></div>
+        <div class="section-heading"><div><h2 id="tools-title">A studio for deliberate growth</h2><p>你的学习工具箱</p></div><p>Clarity, range, and disciplined practice.</p></div>
         <div class="tool-grid">
           <a class="tool-card garden" href="word-garden.html">
-            <span class="number">01 / PRACTICE</span><span class="card-art" aria-hidden="true"></span>
+            <span class="number">01 / PRACTICE</span>
             <h3>Word Garden<span class="card-zh">词汇花园</span></h3>
-            <p>为即兴表达抽一张词汇卡，让想法开始生长。</p><span class="card-arrow">↗</span>
+            <p>用主题词汇训练即兴表达、论点展开与语言反应力。</p><span class="card-arrow">↗</span>
           </a>
-          <div class="tool-card soon reflection" id="coming-soon">
-            <span class="number">02 / REFLECT</span><span class="badge">COMING SOON</span>
+          <a class="tool-card reflection" href="diary-reflections.html">
+            <span class="number">02 / REFLECT</span>
             <h3>Diary Reflections<span class="card-zh">日记反思</span></h3>
-            <p>留下一天的心情、发现与思考。这个小空间正在慢慢准备中。</p><span class="card-arrow">⌛</span>
-          </div>
-          <div class="tool-card soon">
+            <p>用结构化提问复盘阻力、标准与下一步。</p><span class="card-arrow">↗</span>
+          </a>
+          <div class="tool-card soon" id="coming-soon">
             <span class="number">03 / READ</span><span class="badge">COMING SOON</span>
             <h3>Reading Material<span class="card-zh">阅读材料</span></h3>
             <p>收藏值得细读的片段与主题阅读，陪你把好奇心走得更远。</p><span class="card-arrow">⌛</span>
           </div>
         </div>
-        <div class="note"><span class="note-mark">✦</span><span>YJ Speaks 会慢慢长出更多功能。现在，就从一件让你感到好奇的小事开始吧。<br><em>More rooms are on their way. Begin with one small thing that sparks your curiosity.</em></span></div>
+        <div class="note"><span class="note-mark">→</span><span>真正的成长不是更多内容，而是更好的思考与更稳定的行动。<br><em>Growth is not more content. It is clearer thinking and steadier action.</em></span></div>
       </section>
 
       <footer class="footer"><span>© <span id="year"></span> YJ Speaks</span><span>Made for curious minds · 为好奇心而做</span></footer>

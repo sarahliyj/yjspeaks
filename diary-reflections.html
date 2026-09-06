@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="YJ Speaks 日记反思：为更清晰的思考与更稳定的行动而写。">
+  <title>Diary Reflections · 日记反思 | YJ Speaks</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root { --ink:#1e2523; --muted:#6e746f; --cream:#faf9f5; --paper:#eeece5; --line:rgba(30,37,35,.14); --accent:#aa5949; --accent-soft:#e9dbd2; --moss:#789184; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-width:320px; color:var(--ink); background:var(--paper); font-family:"DM Sans","PingFang SC","Microsoft YaHei",sans-serif; }
+    a { color:inherit; text-decoration:none; }
+    button, textarea { font:inherit; }
+    .shell { min-height:100vh; display:grid; grid-template-columns:250px minmax(0,1fr); }
+    .sidebar { position:fixed; inset:0 auto 0 0; z-index:2; width:250px; padding:30px 18px 22px; display:flex; flex-direction:column; background:var(--cream); border-right:1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap:11px; padding:6px 10px 30px; }
+    .brand-mark { display:grid; place-items:center; width:34px; height:34px; border-radius:7px; background:var(--ink); color:var(--cream); font-size:11px; font-weight:600; letter-spacing:.04em; }
+    .brand-name { line-height:1.02; }.brand-name strong { display:block; font-size:16px; font-weight:600; letter-spacing:-.03em; }.brand-name span { color:var(--muted); font-size:10px; letter-spacing:.04em; }
+    .nav-label { margin:0 10px 10px; color:var(--muted); font-size:10px; font-weight:500; letter-spacing:.08em; text-transform:uppercase; }
+    .nav { display:grid; gap:5px; }.nav a { display:flex; align-items:center; gap:11px; padding:11px 10px; border-radius:12px; color:var(--muted); font-size:14px; transition:background .2s,color .2s,transform .2s; }.nav a:hover { transform:translateX(3px); color:var(--ink); background:#f0eee7; }.nav a.active { color:var(--ink); background:#f0eee7; }.nav-icon { width:19px; height:19px; flex:0 0 19px; }.tag { margin-left:auto; padding:3px 6px; border-radius:4px; background:#e8e4dc; color:#7a766b; font-size:9px; font-weight:500; }.sidebar-bottom { margin-top:auto; padding:16px 10px 4px; color:var(--muted); border-top:1px solid var(--line); font-size:12px; line-height:1.5; }.sidebar-bottom span { display:block; margin-top:3px; font-size:11px; }
+    main { grid-column:2; width:100%; max-width:1360px; margin:0 auto; padding:34px clamp(24px,5vw,72px) 54px; }
+    .mobile-brand { display:none; }.topbar { display:flex; justify-content:space-between; align-items:center; padding-bottom:23px; border-bottom:1px solid var(--line); color:var(--muted); font-size:12px; }.crumb { display:flex; align-items:center; gap:8px; }.crumb b { color:var(--ink); }.today { color:var(--muted); }
+    .intro { display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:56px; align-items:end; padding:60px 2% 42px; }.eyebrow { margin:0 0 15px; color:var(--accent); font-size:11px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; }.intro h1 { margin:0; font:600 clamp(42px,5vw,68px)/.95 "Playfair Display",serif; letter-spacing:-.055em; }.intro h1 em { color:var(--accent); font-style:italic; }.intro .cn { margin:18px 0 0; font-size:23px; font-weight:600; }.intro-copy { margin:0 0 5px; color:var(--muted); font-size:14px; line-height:1.8; }.principle { margin-top:21px; padding-top:18px; border-top:1px solid var(--line); color:var(--ink); font-size:13px; line-height:1.65; }.principle b { color:var(--accent); }
+    .workspace { display:grid; grid-template-columns:310px minmax(0,1fr); gap:24px; align-items:start; }.template-list { border:1px solid var(--line); background:rgba(250,249,245,.68); }.template-list header { padding:18px 20px; border-bottom:1px solid var(--line); }.template-list header b { display:block; font-size:14px; }.template-list header span { display:block; margin-top:4px; color:var(--muted); font-size:11px; }.template-option { width:100%; padding:17px 20px; display:grid; grid-template-columns:26px 1fr; gap:11px; text-align:left; border:0; border-bottom:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; transition:background .2s; }.template-option:last-child { border-bottom:0; }.template-option:hover,.template-option.active { background:#f1eee8; }.template-option.active { box-shadow:inset 3px 0 0 var(--accent); }.template-option small { color:var(--accent); font-size:10px; font-weight:600; letter-spacing:.08em; }.template-option strong { display:block; font-size:13px; font-weight:600; }.template-option span { display:block; margin-top:3px; color:var(--muted); font-size:11px; }
+    .reflection-sheet { border:1px solid var(--line); background:var(--cream); }.sheet-head { display:flex; justify-content:space-between; align-items:start; gap:18px; padding:27px 30px 23px; border-bottom:1px solid var(--line); }.sheet-head small { display:block; margin-bottom:8px; color:var(--accent); font-size:10px; font-weight:600; letter-spacing:.12em; }.sheet-head h2 { margin:0; font-size:26px; letter-spacing:-.04em; }.sheet-head h2 span { display:block; margin-top:4px; color:var(--muted); font-size:14px; font-weight:500; letter-spacing:0; }.sheet-date { white-space:nowrap; color:var(--muted); font-size:11px; }.sheet-intro { margin:0; padding:22px 30px; color:var(--muted); border-bottom:1px solid var(--line); font-size:13px; line-height:1.7; }.prompts { padding:4px 30px 13px; }.prompt { padding:23px 0; border-bottom:1px solid var(--line); }.prompt:last-child { border-bottom:0; }.prompt label { display:block; margin-bottom:10px; font-size:14px; font-weight:600; line-height:1.5; }.prompt label span { display:block; margin-top:3px; color:var(--muted); font-size:12px; font-weight:400; }.prompt textarea { width:100%; min-height:108px; resize:vertical; padding:12px 0; border:0; outline:0; background:transparent; color:var(--ink); font-size:14px; line-height:1.75; }.prompt textarea::placeholder { color:#a4a59f; }.sheet-actions { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:20px 30px; border-top:1px solid var(--line); }.save-note { color:var(--muted); font-size:11px; }.buttons { display:flex; gap:9px; }.btn { padding:10px 14px; border:1px solid var(--line); border-radius:5px; background:transparent; color:var(--ink); font-size:12px; font-weight:600; cursor:pointer; }.btn:hover { background:#f0eee7; }.btn.primary { border-color:var(--ink); background:var(--ink); color:var(--cream); }.btn.primary:hover { background:#343d39; }
+    .footer { margin-top:62px; padding-top:18px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:var(--muted); font-size:11px; }
+    @media (max-width:850px) { .shell { display:block; }.sidebar { display:none; } main { padding:18px 20px 42px; }.mobile-brand { display:flex; align-items:center; justify-content:space-between; }.mobile-brand .brand { padding:4px 0; }.mobile-link { padding:8px 10px; border:1px solid var(--line); border-radius:5px; color:var(--muted); font-size:11px; }.topbar { margin-top:14px; }.intro { grid-template-columns:1fr; gap:24px; padding:52px 2% 36px; }.workspace { grid-template-columns:1fr; }.template-list { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }.template-list header { grid-column:1/-1; }.template-option { min-height:85px; }.footer { margin-top:42px; } }
+    @media (max-width:500px) { .intro h1 { font-size:45px; }.template-list { grid-template-columns:1fr; }.sheet-head,.sheet-intro,.prompts,.sheet-actions { padding-left:20px; padding-right:20px; }.sheet-head { display:block; }.sheet-date { margin-top:12px; }.sheet-actions { align-items:flex-start; flex-direction:column; }.buttons { width:100%; }.btn { flex:1; }.footer { display:block; }.footer span + span { display:block; margin-top:5px; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar" aria-label="主导航">
+      <a class="brand" href="index.html" aria-label="YJ Speaks 首页"><span class="brand-mark">YJ</span><span class="brand-name"><strong>YJ Speaks</strong><span>learn with intention</span></span></a>
+      <p class="nav-label">学习空间 · Studio</p>
+      <nav class="nav">
+        <a href="index.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21v-8h6v8"/></svg>首页 <span>Home</span></a>
+        <a href="word-garden.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11c-5 0-7-3-7-7 4 0 7 2 7 7Z"/><path d="M12 15c4.7 0 7-2.3 7-6-3.8 0-7 1.8-7 6Z"/></svg>词汇花园 <span>Word Garden</span></a>
+        <a class="active" href="diary-reflections.html"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>日记反思 <span>Diary</span></a>
+        <a href="index.html#coming-soon"><svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/></svg>阅读材料 <span>Reading</span><small class="tag">soon</small></a>
+      </nav>
+      <div class="sidebar-bottom">Think clearly. Act steadily.<span>清醒思考，稳定行动。</span></div>
+    </aside>
+    <main>
+      <div class="mobile-brand"><a class="brand" href="index.html"><span class="brand-mark">YJ</span><span class="brand-name"><strong>YJ Speaks</strong><span>learn with intention</span></span></a><a class="mobile-link" href="index.html">← 首页</a></div>
+      <div class="topbar"><span class="crumb">YJ Speaks <span>／</span> <b>Diary Reflections</b></span><span class="today" id="today"></span></div>
+      <section class="intro"><div><p class="eyebrow">Structured reflection</p><h1>Write with<br><em>precision.</em></h1><p class="cn">不是记录情绪，而是校准自己。</p></div><div><p class="intro-copy">选择一个模板，把模糊的感受、重复的阻力和未被审视的判断，转化为更清楚的认知与下一步行动。</p><p class="principle"><b>原则 / Principle</b><br>诚实比漂亮重要；具体比笼统重要；行动比自我安慰重要。</p></div></section>
+      <section class="workspace" aria-label="日记反思工具">
+        <aside class="template-list"><header><b>Choose a template</b><span>选择一种你今天真正需要的复盘方式</span></header><div id="templateList"></div></aside>
+        <article class="reflection-sheet"><div class="sheet-head"><div><small id="templateNumber">01 / REFLECT</small><h2 id="templateTitle">The Friction Audit<span id="templateChinese">阻力复盘</span></h2></div><span class="sheet-date" id="sheetDate"></span></div><p class="sheet-intro" id="templateIntro"></p><div class="prompts" id="prompts"></div><div class="sheet-actions"><span class="save-note" id="saveNote">Drafts are saved only in this browser · 草稿仅保存在此浏览器</span><div class="buttons"><button class="btn" type="button" id="clearBtn">清空本页</button><button class="btn primary" type="button" id="saveBtn">保存草稿 · Save draft</button></div></div></article>
+      </section>
+      <footer class="footer"><span>© <span id="year"></span> YJ Speaks</span><span>Think clearly · Act steadily</span></footer>
+    </main>
+  </div>
+  <script>
+    const templates = [
+      { id:'friction', number:'01 / REFLECT', title:'The Friction Audit', zh:'阻力复盘', intro:'Name the resistance precisely. A useful reflection turns “I was stuck” into an obstacle you can actually reduce.', prompts:[['今天我在哪件事上卡住了？','What exactly did I get stuck on today?'],['卡住的真正原因是什么：能力、恐惧、环境，还是借口？','Was the real barrier skill, fear, environment, or an excuse?'],['明天我能把阻力降低到什么具体动作？','What specific action will lower the friction tomorrow?']] },
+      { id:'evidence', number:'02 / THINK', title:'Evidence, Not Mood', zh:'用证据，不用情绪', intro:'Separate your interpretation from the facts. Better thinking starts when a feeling stops pretending to be a conclusion.', prompts:[['今天我对自己下了什么判断？','What judgment did I make about myself today?'],['支撑这个判断的事实是什么？反驳它的事实又是什么？','What facts support it—and what facts challenge it?'],['更准确、更有行动力的结论是什么？','What is a more accurate conclusion that leads to action?']] },
+      { id:'standard', number:'03 / STANDARD', title:'The Standard I Kept', zh:'我守住的标准', intro:'Character shows up under pressure. Review the moment your values were tested, not just the outcome you got.', prompts:[['今天什么时刻最考验我的标准？','Which moment tested my standards most today?'],['我是如何回应的？','How did I respond?'],['如果重来一次，什么会让我的回应更成熟？','If I could replay it, what would make my response more mature?']] },
+      { id:'avoidance', number:'04 / CONFRONT', title:'Avoidance Has a Cost', zh:'逃避的代价', intro:'Avoidance often feels harmless in the moment. Make its cost visible, then identify the smallest non-negotiable move.', prompts:[['我今天回避了什么重要的事？','What important thing did I avoid today?'],['继续回避一周、一个月，会让我失去什么？','What will this cost me in a week or a month?'],['最小但不可协商的下一步是什么？','What is the smallest non-negotiable next step?']] },
+      { id:'practice', number:'05 / PRACTICE', title:'Deliberate Practice Log', zh:'刻意练习记录', intro:'Doing something repeatedly is not the same as getting better. Focus on the specific edge where your skill can improve.', prompts:[['我今天想变强的具体能力是什么？','What specific capability am I trying to strengthen?'],['我练习了什么，而不只是“做了什么”？','What did I practice—not merely do?'],['哪里暴露了短板？下一次如何提高难度或质量？','What weakness did this expose, and how will I raise the difficulty or quality next time?']] }
+    ];
+    let active = templates[0];
+    const storageKey = id => 'yj-speaks-reflection-' + id;
+    const list = document.getElementById('templateList');
+    const prompts = document.getElementById('prompts');
+    const saveNote = document.getElementById('saveNote');
+    const date = new Intl.DateTimeFormat('zh-CN', { year:'numeric', month:'long', day:'numeric', weekday:'short' }).format(new Date());
+    document.getElementById('today').textContent = date;
+    document.getElementById('sheetDate').textContent = date;
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function renderList() { list.innerHTML = templates.map((template, index) => `<button class="template-option ${template.id === active.id ? 'active' : ''}" type="button" data-id="${template.id}"><small>0${index + 1}</small><span><strong>${template.title}</strong><span>${template.zh}</span></span></button>`).join(''); list.querySelectorAll('button').forEach(button => button.addEventListener('click', () => { active = templates.find(template => template.id === button.dataset.id); render(); })); }
+    function render() { document.getElementById('templateNumber').textContent = active.number; document.getElementById('templateTitle').childNodes[0].nodeValue = active.title; document.getElementById('templateChinese').textContent = active.zh; document.getElementById('templateIntro').textContent = active.intro; const saved = JSON.parse(localStorage.getItem(storageKey(active.id)) || '[]'); prompts.innerHTML = active.prompts.map((prompt, index) => `<div class="prompt"><label for="answer-${index}">${prompt[0]}<span>${prompt[1]}</span></label><textarea id="answer-${index}" placeholder="Write with honesty. Be specific." aria-label="${prompt[0]}">${saved[index] || ''}</textarea></div>`).join(''); saveNote.textContent = saved.some(Boolean) ? 'Loaded your saved draft · 已载入本浏览器中的草稿' : 'Drafts are saved only in this browser · 草稿仅保存在此浏览器'; renderList(); }
+    document.getElementById('saveBtn').addEventListener('click', () => { const answers = [...prompts.querySelectorAll('textarea')].map(field => field.value.trim()); localStorage.setItem(storageKey(active.id), JSON.stringify(answers)); saveNote.textContent = 'Draft saved in this browser · 草稿已保存在此浏览器'; });
+    document.getElementById('clearBtn').addEventListener('click', () => { if (confirm('清空这个模板里的所有回答？\nClear every answer in this template?')) { localStorage.removeItem(storageKey(active.id)); render(); } });
+    render();
+  </script>
+</body>
+</html>
