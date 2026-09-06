@@ -549,41 +549,6 @@
     box-shadow: 0 12px 40px rgba(38,50,41,0.18);
   }
 
-  .invite-box{ text-align:center; max-width: 380px; }
-  .invite-title{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size: 22px;
-    color: var(--hist);
-    margin-bottom: 14px;
-  }
-  .invite-line{
-    font-size: 15px;
-    margin: 6px 0;
-    color: var(--ink);
-  }
-  .invite-line-zh{
-    font-family:'Noto Serif SC', serif;
-    font-size: 15px;
-    font-weight:600;
-    margin: 6px 0 22px;
-    color: var(--ink);
-  }
-  .modal-close-btn{
-    appearance:none;
-    border:none;
-    cursor:pointer;
-    background: var(--ink);
-    color: var(--paper);
-    font-family:'Space Grotesk', sans-serif;
-    font-weight: 500;
-    font-size: 13.5px;
-    padding: 11px 24px;
-    border-radius: 999px;
-    transition: transform 0.15s ease;
-  }
-  .modal-close-btn:hover{ transform: translateY(-1px); }
-
   .modal-x{
     position:absolute;
     top:14px;
@@ -745,16 +710,6 @@
 
   <div class="credit">Built by Sarah艺婕 · 全平台同名</div>
 
-</div>
-
-<!-- Invite-only gate -->
-<div class="modal-overlay" id="inviteOverlay">
-  <div class="modal-box invite-box">
-    <div class="invite-title">Beta · 内测</div>
-    <p class="invite-line">This is an invite-only beta.</p>
-    <p class="invite-line-zh">请勿转给其他人</p>
-    <button class="modal-close-btn" id="inviteCloseBtn">我知道了 · Got it</button>
-  </div>
 </div>
 
 <!-- Guide modal -->
@@ -1378,17 +1333,6 @@ timerResetBtn.addEventListener('click', () => {
 updateRing();
 updateControls();
 
-/* ---------- Invite-only gate ---------- */
-const inviteOverlay = document.getElementById('inviteOverlay');
-const inviteCloseBtn = document.getElementById('inviteCloseBtn');
-
-window.addEventListener('load', () => {
-  inviteOverlay.classList.add('show');
-});
-inviteCloseBtn.addEventListener('click', () => {
-  inviteOverlay.classList.remove('show');
-});
-
 /* ---------- Guides ---------- */
 const guideOverlay = document.getElementById('guideOverlay');
 const guideContent = document.getElementById('guideContent');
@@ -1483,10 +1427,6 @@ guideCloseBtn.addEventListener('click', () => guideOverlay.classList.remove('sho
 guideOverlay.addEventListener('click', (e) => {
   if(e.target === guideOverlay) guideOverlay.classList.remove('show');
 });
-inviteOverlay.addEventListener('click', (e) => {
-  if(e.target === inviteOverlay) inviteOverlay.classList.remove('show');
-});
-
 /* ---------- Feedback (mailto, no backend) ---------- */
 const feedbackInput = document.getElementById('feedbackInput');
 const feedbackBtn = document.getElementById('feedbackBtn');
