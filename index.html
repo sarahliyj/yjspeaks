@@ -80,13 +80,17 @@
     .button.secondary { border-color: var(--line); background: transparent; color: var(--ink); }
     .button svg { width: 15px; height: 15px; }
 
-    .practice-index { width: min(100%, 340px); margin: auto; border: 1px solid var(--line); background: rgba(250,249,245,.56); }
-    .practice-index header { padding: 18px 20px; border-bottom: 1px solid var(--line); color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
-    .practice-row { display: grid; grid-template-columns: 42px 1fr auto; align-items: center; gap: 12px; padding: 21px 20px; border-bottom: 1px solid var(--line); }
-    .practice-row:last-child { border-bottom: 0; }
-    .practice-row b { font-size: 13px; letter-spacing: .02em; }
-    .practice-row span { color: var(--muted); font-size: 12px; }
-    .practice-row small { color: var(--accent); font-size: 10px; letter-spacing: .08em; }
+    .mind-art { position:relative; width:min(100%, 360px); aspect-ratio:1; margin:auto; overflow:hidden; border:1px solid var(--line); background:#f6f4ee; }
+    .mind-art::before { content:""; position:absolute; inset:0; opacity:.42; background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:30px 30px; }
+    .mind-art svg { position:relative; display:block; width:100%; height:100%; }
+    .mind-art .brain { fill:#e9dbd2; stroke:var(--ink); stroke-width:1.8; }
+    .mind-art .path { fill:none; stroke:var(--ink); stroke-width:1.55; stroke-linecap:round; stroke-linejoin:round; }
+    .mind-art .soft-path { fill:none; stroke:var(--moss); stroke-width:1.45; stroke-linecap:round; }
+    .mind-art .node { fill:var(--accent); stroke:#f6f4ee; stroke-width:3; }
+    .mind-art .node-dark { fill:var(--ink); stroke:#f6f4ee; stroke-width:3; }
+    .mind-art .node-moss { fill:var(--moss); stroke:#f6f4ee; stroke-width:3; }
+    .mind-art .label { fill:var(--muted); font:600 8px "DM Sans",sans-serif; letter-spacing:1.4px; }
+    .mind-art .yj { fill:var(--ink); font:600 13px "DM Sans",sans-serif; letter-spacing:1px; }
 
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin: 16px 0 20px; }
     .section-heading h2 { margin: 0; font: 600 28px "DM Sans", sans-serif; letter-spacing: -.04em; }
@@ -124,7 +128,7 @@
       .topbar { display: none; }
       .hero { min-height: auto; grid-template-columns: 1fr; gap: 20px; padding: 64px 5% 48px; }
       .hero-text { position: relative; z-index: 1; }
-      .practice-index { width: 100%; margin-top: 6px; }
+      .mind-art { width: min(100%, 310px); margin-top: 6px; }
       .tool-grid { grid-template-columns: 1fr; }
       .tool-card { min-height: 215px; }
       .footer { margin-top: 48px; }
@@ -178,11 +182,17 @@
             <a class="button secondary" href="#tools">看看学习工具 <span>Our tools</span></a>
           </div>
         </div>
-        <div class="practice-index" aria-label="YJ Speaks 学习方法">
-          <header>YJ Speaks / Practice Index</header>
-          <div class="practice-row"><small>01</small><div><b>Speak</b><span> · 表达练习</span></div><small>VOICE</small></div>
-          <div class="practice-row"><small>02</small><div><b>Reflect</b><span> · 深度复盘</span></div><small>CLARITY</small></div>
-          <div class="practice-row"><small>03</small><div><b>Read</b><span> · 观点输入</span></div><small>RANGE</small></div>
+        <div class="mind-art" aria-label="YJ Speaks 思维网络标志">
+          <svg viewBox="0 0 360 360" role="img" aria-label="An abstract brain and neural network illustration">
+            <text class="label" x="24" y="29">YJ SPEAKS / MIND IN MOTION</text>
+            <path class="brain" d="M118 258c-17-1-31-16-31-34 0-11 5-21 13-27-8-9-11-23-7-35 4-12 14-21 27-24-2-17 9-33 25-38 12-4 25-1 34 7 8-11 22-17 35-14 18 3 31 18 31 36 15 4 26 17 26 33 0 9-3 18-8 24 9 6 15 16 15 28 0 18-13 33-30 36-3 16-17 28-34 28-10 0-19-4-25-10-8 8-19 12-30 10-11-2-20-8-26-17z"/>
+            <path class="path" d="M116 164c15-4 30 1 38 12 8 12 6 28-3 39m20-98c-9 15-7 34 5 46 10 11 25 14 39 8m-103 27c14 1 27 10 32 23 4 12 1 25-8 34m65-154c-2 16 6 31 20 39 12 7 28 6 40-2m-29 50c-14 3-25 14-28 28-2 13 4 27 16 34m-29-35c-12-2-25 4-33 15m85-119c-7 13-5 30 6 40m10 50c13-4 27 0 37 10"/>
+            <path class="soft-path" d="M54 141h44m-58 68h70m153-90h51m-26 106h41m-144 85v27m-86-61-31 29m42-176-31-26"/>
+            <path class="soft-path" d="M144 155l30 8m38 8 25-25m-53 72 25 20m-67-16-19-24m112-20 26 10"/>
+            <circle class="node" cx="154" cy="163" r="7"/><circle class="node-dark" cx="214" cy="171" r="7"/><circle class="node-moss" cx="183" cy="218" r="7"/><circle class="node" cx="144" cy="198" r="6"/><circle class="node-dark" cx="237" cy="146" r="6"/><circle class="node-moss" cx="209" cy="258" r="6"/>
+            <circle class="node-dark" cx="55" cy="141" r="5"/><circle class="node" cx="40" cy="209" r="5"/><circle class="node-moss" cx="314" cy="119" r="5"/><circle class="node" cx="329" cy="225" r="5"/><circle class="node-dark" cx="185" cy="337" r="5"/><circle class="node-moss" cx="68" cy="305" r="5"/><circle class="node" cx="79" cy="103" r="5"/>
+            <text class="label" x="24" y="337">THOUGHT</text><text class="label" x="268" y="337">VOICE</text><text class="yj" x="161" y="303">YJ</text>
+          </svg>
         </div>
       </section>
 
