@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e2523"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="app-icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="app-icon.svg">
   <title>Attention Blooms | YJ Speaks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Noto+Serif+SC:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
@@ -69,5 +70,6 @@
     <aside class="note">English text was supplied by the YJ Speaks curator; Chinese translation was prepared for this reader. The essay remains attributed to Henrik Karlsson. Visit the linked original for the author’s publication and complete context.<br>本文英文内容由 YJ Speaks 策展人提供，中文翻译为本站制作。文章版权与署名仍归 Henrik Karlsson 所有；请访问原文了解作者发布版本与完整上下文。</aside>
   </main>
   <script>const buttons=document.querySelectorAll('[data-language]'),en=document.getElementById('english'),zh=document.getElementById('chinese');buttons.forEach(b=>b.addEventListener('click',()=>{const isZh=b.dataset.language==='zh';en.classList.toggle('hidden',isZh);zh.classList.toggle('hidden',!isZh);buttons.forEach(x=>x.classList.toggle('active',x===b))}))</script>
+  <script src="pwa.js"></script>
 </body>
 </html>

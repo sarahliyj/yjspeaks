@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
+  <title id="title">YJ Speaks</title>
+  <rect width="512" height="512" rx="112" fill="#1e2523"/>
+  <path d="M151 315c-32-4-57-31-57-64 0-20 9-38 24-50-15-17-20-42-12-64 8-22 27-38 51-43-1-32 20-62 51-71 24-7 49-1 66 16 16-22 41-33 67-27 34 6 59 35 59 70 28 8 48 33 48 63 0 18-6 34-17 47 17 12 27 31 27 54 0 34-24 62-56 68-6 31-33 54-66 54-18 0-35-7-47-19-16 15-37 22-59 18-21-4-39-16-50-33z" fill="#e9dbd2" stroke="#faf9f5" stroke-width="10"/>
+  <path d="M171 178c27-7 53 2 69 23 14 20 11 47-6 65m36-165c-15 27-11 60 10 82 19 21 48 27 74 16m-183 73c26 2 49 19 58 44 8 23 2 49-16 66m122-279c-4 30 11 58 38 72 24 13 54 11 77-5m-57 94c-26 5-47 26-52 52-4 25 8 51 31 65m-56-67c-22-4-47 7-62 29m163-214c-13 25-9 55 11 75m19 93c25-7 52 1 71 20" fill="none" stroke="#1e2523" stroke-linecap="round" stroke-width="14"/>
+  <circle cx="229" cy="199" r="17" fill="#aa5949"/><circle cx="343" cy="214" r="17" fill="#1e2523"/><circle cx="282" cy="307" r="17" fill="#789184"/><circle cx="211" cy="267" r="14" fill="#aa5949"/><circle cx="387" cy="165" r="14" fill="#1e2523"/>
+  <text x="256" y="445" fill="#faf9f5" font-family="Arial, sans-serif" font-size="46" font-weight="700" letter-spacing="8" text-anchor="middle">YJ</text>
+</svg>

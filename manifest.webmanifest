@@ -1,0 +1,14 @@
+{
+  "name": "YJ Speaks · 解锁你的无限潜能",
+  "short_name": "YJ Speaks",
+  "description": "一个为表达力、清晰思考与长期成长而生的双语学习空间。",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eeece5",
+  "theme_color": "#1e2523",
+  "icons": [
+    { "src": "app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

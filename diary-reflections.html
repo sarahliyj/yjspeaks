@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#1e2523"><meta name="apple-mobile-web-app-capable" content="yes"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="app-icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="app-icon.svg">
   <meta name="description" content="YJ Speaks 日记反思：为更清晰的思考与更稳定的行动而写。">
   <title>Diary Reflections · 日记反思 | YJ Speaks</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,5 +79,6 @@
     document.getElementById('clearBtn').addEventListener('click', () => { if (confirm('清空这个模板里的所有回答？\nClear every answer in this template?')) { localStorage.removeItem(storageKey(active.id)); render(); } });
     render();
   </script>
+  <script src="pwa.js"></script>
 </body>
 </html>

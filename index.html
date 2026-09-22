@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="YJ Speaks — 一个双语的表达、思考与成长学习空间。">
+  <meta name="theme-color" content="#1e2523">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="app-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="app-icon.svg">
   <title>YJ Speaks · 解锁你的无限潜能</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,7 +84,9 @@
     .button:hover { transform: translateY(-2px); }
     .button.primary { background: var(--ink); color: var(--cream); box-shadow: none; }
     .button.secondary { border-color: var(--line); background: transparent; color: var(--ink); }
+    .button.install { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
     .button svg { width: 15px; height: 15px; }
+    .install-hint { max-width:440px; margin:12px 0 0; color:var(--muted); font-size:11px; line-height:1.5; }
 
     .mind-art { position:relative; width:min(100%, 360px); aspect-ratio:1; margin:auto; overflow:hidden; border:1px solid var(--line); background:#f6f4ee; }
     .mind-art::before { content:""; position:absolute; inset:0; opacity:.42; background-image:linear-gradient(var(--line) 1px, transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size:30px 30px; }
@@ -180,7 +188,9 @@
           <div class="hero-actions">
             <a class="button primary" href="word-garden.html">开始探索 <span>Begin exploring</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="button secondary" href="#tools">看看学习工具 <span>Our tools</span></a>
+            <button class="button install" type="button" data-install-app>下载 YJ Speaks <span>Install app</span></button>
           </div>
+          <p class="install-hint" data-install-hint>Install YJ Speaks for quick access and offline reading · 安装到主屏幕，随时开始学习。</p>
         </div>
         <div class="mind-art" aria-label="YJ Speaks 思维网络标志">
           <svg viewBox="0 0 360 360" role="img" aria-label="An abstract brain and neural network illustration">
@@ -226,5 +236,6 @@
     const day = new Intl.DateTimeFormat('zh-CN', { month: 'long', day: 'numeric', weekday: 'short' }).format(new Date());
     document.getElementById('today').textContent = day + ' · 今天也是新的开始';
   </script>
+  <script src="pwa.js"></script>
 </body>
 </html>
