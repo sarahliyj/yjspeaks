@@ -1,7 +1,7 @@
-const CACHE_NAME = 'yj-speaks-v3';
+const CACHE_NAME = 'yj-speaks-v4';
 const APP_SHELL = [
   './', './index.html', './word-garden.html', './diary-reflections.html',
-  './reading-material.html', './attention-blooms.html', './real-confidence.html', './conscious-subconscious.html', './manifest.webmanifest', './app-icon.svg'
+  './reading-material.html', './attention-blooms.html', './real-confidence.html', './conscious-subconscious.html', './what-is-meant.html', './manifest.webmanifest', './app-icon.svg'
 ];
 
 self.addEventListener('install', event => {
