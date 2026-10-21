@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/bym",
+      "destination": "https://bym-app.vercel.app/bym"
+    },
+    {
+      "source": "/bym/:path*",
+      "destination": "https://bym-app.vercel.app/bym/:path*"
+    }
+  ]
+}
