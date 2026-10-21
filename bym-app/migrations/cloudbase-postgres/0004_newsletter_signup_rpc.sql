@@ -22,7 +22,7 @@ as $$
 declare
   configured_secret text;
   normalized_email text;
-  current_time bigint;
+  current_time_ms bigint;
 begin
   select config.secret
     into configured_secret
@@ -40,7 +40,7 @@ begin
     raise exception 'invalid email' using errcode = '22023';
   end if;
 
-  current_time := floor(extract(epoch from clock_timestamp()) * 1000)::bigint;
+  current_time_ms := floor(extract(epoch from clock_timestamp()) * 1000)::bigint;
 
   insert into public.newsletter_subscribers (
     id,
@@ -57,11 +57,11 @@ begin
     normalized_email,
     'pending',
     'yjspeaks',
-    current_time,
+    current_time_ms,
     null,
     null,
-    current_time,
-    current_time
+    current_time_ms,
+    current_time_ms
   )
   on conflict (email_normalized) do update set
     status = 'pending',
