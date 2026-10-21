@@ -27,9 +27,9 @@ This makes the current path integration reversible: moving Bym to `bym.cn`, anot
 | `NEXT_PUBLIC_BASE_PATH` | `/bym` | empty |
 | `CLOUDBASE_ENV_ID` | CloudBase environment ID | unchanged or a new environment |
 | `CLOUDBASE_PUBLISHABLE_KEY` | Vercel server secret used for public/authenticated requests | Vercel/server secret |
-| `CLOUDBASE_SERVICE_ROLE_KEY` | Vercel server secret used only by privileged server routes | Vercel/server secret |
+| `NEWSLETTER_SIGNUP_SECRET` | Vercel server secret accepted only by the newsletter signup RPC | Vercel/server secret |
 
-Never expose either CloudBase key to browser code or commit it to Git. In particular, the service-role key must only be read inside server route handlers and repository functions.
+Keep the CloudBase publishable key in deployment configuration and never commit deployment credentials to Git. `NEWSLETTER_SIGNUP_SECRET` must only be read inside server route handlers and repository functions.
 
 ## Migration order
 

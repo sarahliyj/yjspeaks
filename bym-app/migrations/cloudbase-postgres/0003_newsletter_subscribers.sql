@@ -17,4 +17,4 @@ create index if not exists idx_newsletter_subscribers_status
   on public.newsletter_subscribers(status, updated_at desc);
 
 alter table public.newsletter_subscribers enable row level security;
-grant all on public.newsletter_subscribers to service_role;
+revoke all on public.newsletter_subscribers from anon, authenticated;

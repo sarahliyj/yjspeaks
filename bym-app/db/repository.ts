@@ -111,47 +111,16 @@ export async function setSubscription(user: AppUser, input: { publicationId: str
 }
 
 export async function createNewsletterSubscriber(email: string) {
-  const token = process.env.CLOUDBASE_SERVICE_ROLE_KEY;
-  if (!token) throw new Error('CloudBase service role key is required for newsletter subscriptions.');
+  const secret = process.env.NEWSLETTER_SIGNUP_SECRET;
+  if (!secret) throw new Error('Newsletter signup secret is required.');
 
-  const normalizedEmail = normalizeEmail(email);
-  const now = Date.now();
-  const existing = await table(
-    'newsletter_subscribers',
-    { select: 'id,status', email_normalized: 'eq.' + normalizedEmail, limit: '1' },
-    token,
+  const rows = await rdbRpc<Array<{ subscriber_id: string; subscriber_status: string }>>(
+    'subscribe_newsletter',
+    { email_input: normalizeEmail(email), secret_input: secret },
   );
-
-  if (existing[0]) {
-    const row = await patch(
-      'newsletter_subscribers',
-      { id: 'eq.' + str(existing[0].id) },
-      {
-        status: 'pending',
-        source: 'yjspeaks',
-        consented_at: now,
-        unsubscribed_at: null,
-        updated_at: now,
-      },
-      token,
-    );
-    return { id: str(row[0]?.id) || str(existing[0].id), status: 'pending' as const };
-  }
-
-  const created = await post(
-    'newsletter_subscribers',
-    [{
-      id: crypto.randomUUID(),
-      email_normalized: normalizedEmail,
-      status: 'pending',
-      source: 'yjspeaks',
-      consented_at: now,
-      created_at: now,
-      updated_at: now,
-    }],
-    token,
-  );
-  return { id: str(created[0]?.id), status: 'pending' as const };
+  const row = rows[0];
+  if (!row) throw new Error('Newsletter subscription did not return a result.');
+  return { id: row.subscriber_id, status: 'pending' as const };
 }
 
 export async function getInbox(user: AppUser, limit = 30) {
