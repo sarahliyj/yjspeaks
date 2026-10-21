@@ -1,3 +1,5 @@
+import { appPath } from '@/lib/app-path';
+
 export const demoArticles = {
   craft: {
     slug: 'craft',
@@ -9,7 +11,7 @@ export const demoArticles = {
     subtitle: '我们并不缺少信息，缺少的是一段不被打断的时间。',
     published: '2026年10月11日',
     readingTime: '6 分钟',
-    coverImage: '/article-attention-photo.jpg',
+    coverImage: appPath('/article-attention-photo.jpg'),
     coverAlt: '蓝色桌面上的计划本、笔记本与一杯茶',
     photoCredit: 'My Profit Tutor / Unsplash',
     photoSource: 'https://unsplash.com/photos/ZfRWq1bRisE',
@@ -31,7 +33,7 @@ export const demoArticles = {
     subtitle: '凌晨四点半，第一盏灯不是来自写字楼。',
     published: '2026年10月10日',
     readingTime: '9 分钟',
-    coverImage: '/article-market-photo.jpg',
+    coverImage: appPath('/article-market-photo.jpg'),
     coverAlt: '西安市场里正在整理新鲜蔬菜的摊主',
     photoCredit: 'Quan-You Zhang / Unsplash',
     photoSource: 'https://unsplash.com/photos/PrTsGP6QS2k',
@@ -51,7 +53,7 @@ export const demoArticles = {
     subtitle: '当一件工具追求所有可能性，它往往也失去了最初那件做得最好的事。',
     published: '2026年10月9日',
     readingTime: '7 分钟',
-    coverImage: '/article-tools-photo.jpg',
+    coverImage: appPath('/article-tools-photo.jpg'),
     coverAlt: '老木工坊里使用多年的手工工具',
     photoCredit: 'Job Vermeulen / Unsplash',
     photoSource: 'https://unsplash.com/photos/gJWlckmTeYc',
