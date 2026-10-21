@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --font-sans: var(--font-sans-cn);
+  --font-heading: var(--font-serif-cn);
+  --radius-sm: calc(var(--radius) * 0.65);
+  --radius-md: calc(var(--radius) * 0.82);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.35);
+  --radius-2xl: calc(var(--radius) * 1.75);
+}
+
+:root {
+  --font-sans-cn: 'Heiti SC', STHeiti, SimHei, 'Microsoft YaHei', 'Noto Sans CJK SC', 'PingFang SC', ui-sans-serif, system-ui, sans-serif;
+  --font-serif-cn: var(--font-sans-cn);
+  --background: oklch(0.995 0.004 245);
+  --foreground: oklch(0.26 0.048 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.26 0.048 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.26 0.048 255);
+  --primary: oklch(0.57 0.19 250);
+  --primary-foreground: oklch(0.99 0.005 245);
+  --secondary: oklch(0.955 0.025 245);
+  --secondary-foreground: oklch(0.31 0.07 255);
+  --muted: oklch(0.97 0.014 245);
+  --muted-foreground: oklch(0.52 0.055 250);
+  --accent: oklch(0.94 0.045 245);
+  --accent-foreground: oklch(0.5 0.18 250);
+  --destructive: oklch(0.64 0.2 25);
+  --border: oklch(0.875 0.035 245);
+  --input: oklch(0.86 0.04 245);
+  --ring: oklch(0.57 0.19 250);
+  --radius: 0.48rem;
+}
+
+.dark {
+  --background: oklch(0.995 0.004 245);
+  --foreground: oklch(0.26 0.048 255);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.26 0.048 255);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.26 0.048 255);
+  --primary: oklch(0.57 0.19 250);
+  --primary-foreground: oklch(0.99 0.005 245);
+  --secondary: oklch(0.955 0.025 245);
+  --secondary-foreground: oklch(0.31 0.07 255);
+  --muted: oklch(0.97 0.014 245);
+  --muted-foreground: oklch(0.52 0.055 250);
+  --accent: oklch(0.94 0.045 245);
+  --accent-foreground: oklch(0.5 0.18 250);
+  --destructive: oklch(0.64 0.2 25);
+  --border: oklch(0.875 0.035 245);
+  --input: oklch(0.86 0.04 245);
+  --ring: oklch(0.57 0.19 250);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply bg-background font-sans text-foreground;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    background-image: radial-gradient(circle at 50% -20%, oklch(0.9 0.07 245 / 55%), transparent 38rem);
+    background-attachment: fixed;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background: oklch(0.68 0.17 245 / 38%);
+  }
+}
+
+@layer components {
+  .font-serif-cn {
+    font-family: var(--font-serif-cn);
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary/80 hover:text-foreground;
+  }
+
+  .mobile-nav-item {
+    @apply flex min-w-16 flex-col items-center gap-1 text-[10px] text-muted-foreground;
+  }
+
+  .icon-button {
+    @apply grid size-8 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground;
+  }
+
+  .avatar-tone {
+    @apply grid size-10 shrink-0 place-items-center rounded-md text-sm font-bold;
+    font-family: var(--font-serif-cn);
+  }
+
+  .avatar-clay {
+    @apply bg-[#e6f2ff] text-[#1768ad];
+  }
+
+  .avatar-moss {
+    @apply bg-[#edf4ff] text-[#345f9d];
+  }
+
+  .avatar-ink {
+    @apply bg-[#e8eef8] text-[#4a6384];
+  }
+
+  .feed-stream {
+    @apply bg-transparent;
+  }
+
+  .feed-post {
+    @apply relative border-t border-border/80 py-7 first:border-t-0 first:pt-1 sm:py-9;
+  }
+
+  .feed-top-action {
+    @apply grid size-8 shrink-0 place-items-center rounded-full text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground;
+  }
+
+  .feed-story-card {
+    @apply mt-5 block overflow-hidden rounded-xl border border-border bg-[#17243a] shadow-sm transition-transform duration-200 hover:-translate-y-0.5;
+  }
+
+  .feed-story-image {
+    @apply aspect-[16/9] w-full object-cover;
+  }
+
+  .feed-story-caption {
+    @apply relative min-h-24 bg-[#1d2b3d] px-5 py-4 pr-14;
+  }
+
+  .feed-actions {
+    @apply mt-5 flex items-center gap-6 pl-14 text-muted-foreground;
+  }
+
+  .feed-actions button,
+  .feed-actions a {
+    @apply inline-flex items-center justify-center transition-colors hover:text-primary;
+  }
+
+  .feed-actions svg {
+    @apply size-[20px] stroke-[1.8];
+  }
+}
