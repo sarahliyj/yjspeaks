@@ -12,11 +12,22 @@ function requestOrigin(request: Request) {
 
 function isAllowedOrigin(origin: string) {
   if (allowedOrigins.has(origin)) return true;
-  try {
-    return new URL(process.env.SITE_ORIGIN ?? '').origin === origin;
-  } catch {
-    return false;
+  const configuredOrigins = [
+    process.env.SITE_ORIGIN,
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+    process.env.VERCEL_BRANCH_URL ? `https://${process.env.VERCEL_BRANCH_URL}` : undefined,
+  ];
+
+  for (const value of configuredOrigins) {
+    if (!value) continue;
+    try {
+      if (new URL(value).origin === origin) return true;
+    } catch {
+      // Ignore malformed optional deployment configuration.
+    }
   }
+
+  return false;
 }
 
 function headers(origin: string) {
