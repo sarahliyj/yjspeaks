@@ -14,6 +14,7 @@ export function AccountForm({ initialMode = 'login' }: { initialMode?: 'login' |
   const [code, setCode] = useState('');
   const [awaitingCode, setAwaitingCode] = useState(false);
   const [verificationId, setVerificationId] = useState('');
+  const [loginWithCode, setLoginWithCode] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
@@ -27,12 +28,43 @@ export function AccountForm({ initialMode = 'login' }: { initialMode?: 'login' |
     setBusy(true);
     setError('');
     try {
-      if (mode === 'login') {
+      if (mode === 'login' && !loginWithCode) {
         const response = await fetch(appPath('/api/auth/login'), {
           method: 'POST',
           credentials: 'same-origin',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ email, password }),
+        });
+        const result = (await response.json()) as { error?: { message?: string } };
+        if (!response.ok) throw new Error(result.error?.message ?? '登录失败。');
+        window.location.assign(returnTo());
+        return;
+      }
+
+      if (mode === 'login' && loginWithCode && !awaitingCode) {
+        const response = await fetch(appPath('/api/auth/send-code'), {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, purpose: 'login' }),
+        });
+        const result = (await response.json()) as {
+          verificationId?: string;
+          error?: { message?: string };
+        };
+        if (!response.ok) throw new Error(result.error?.message ?? '验证码发送失败。');
+        if (!result.verificationId) throw new Error('未能发送验证码，请稍后再试。');
+        setVerificationId(result.verificationId);
+        setAwaitingCode(true);
+        return;
+      }
+
+      if (mode === 'login' && loginWithCode) {
+        const response = await fetch(appPath('/api/auth/login-code'), {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ code, verificationId }),
         });
         const result = (await response.json()) as { error?: { message?: string } };
         if (!response.ok) throw new Error(result.error?.message ?? '登录失败。');
@@ -91,7 +123,7 @@ export function AccountForm({ initialMode = 'login' }: { initialMode?: 'login' |
               <span className="mb-2 block text-sm font-medium">邮箱</span>
               <Input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} disabled={awaitingCode} />
             </label>
-            {!awaitingCode && (
+            {!awaitingCode && !(mode === 'login' && loginWithCode) && (
               <label className="block">
                 <span className="mb-2 block text-sm font-medium">密码</span>
                 <Input type="password" required minLength={8} value={password} onChange={(event) => setPassword(event.target.value)} />
@@ -105,14 +137,47 @@ export function AccountForm({ initialMode = 'login' }: { initialMode?: 'login' |
             )}
             {error && <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>}
             <Button type="submit" className="h-11 w-full rounded-md font-semibold" disabled={busy}>
-              {busy ? '请稍候…' : mode === 'login' ? '登录' : awaitingCode ? '验证并创建账号' : '发送验证码'}
+              {busy
+                ? '请稍候…'
+                : mode === 'login'
+                  ? loginWithCode
+                    ? awaitingCode
+                      ? '验证并登录'
+                      : '发送验证码'
+                    : '登录'
+                  : awaitingCode
+                    ? '验证并创建账号'
+                    : '发送验证码'}
             </Button>
           </form>
 
+          {!awaitingCode && mode === 'login' && (
+            <button
+              type="button"
+              className="mt-5 w-full text-center text-sm text-muted-foreground hover:text-foreground"
+              onClick={() => {
+                setLoginWithCode(!loginWithCode);
+                setPassword('');
+                setCode('');
+                setError('');
+              }}
+            >
+              {loginWithCode ? '使用密码登录' : '使用邮箱验证码登录'}
+            </button>
+          )}
+
           {!awaitingCode && (
             <button
+              type="button"
               className="mt-5 w-full text-center text-sm text-muted-foreground hover:text-foreground"
-              onClick={() => { setMode(mode === 'login' ? 'signup' : 'login'); setError(''); }}
+              onClick={() => {
+                setMode(mode === 'login' ? 'signup' : 'login');
+                setLoginWithCode(false);
+                setAwaitingCode(false);
+                setVerificationId('');
+                setCode('');
+                setError('');
+              }}
             >
               {mode === 'login' ? '没有账号？创建账号' : '已有账号？登录'}
             </button>
