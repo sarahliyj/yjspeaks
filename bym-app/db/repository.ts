@@ -11,15 +11,15 @@ const ARTICLE_SELECT = 'id,slug,title,subtitle,body_document,body_text,cover_ima
 
 export async function ensureAppUser(identity: AppIdentity, token: string): Promise<AppUser> {
   const email = normalizeEmail(identity.email);
-  const rows = await table('users', { select: 'id,display_name,account_status,identity_status', external_auth_subject: `eq.${identity.userId}`, limit: '1' }, token);
   const now = Date.now();
-  if (rows[0]) {
-    const updated = await patch('users', { id: `eq.${str(rows[0].id)}` }, { email_normalized: email, email_verified_at: now, display_name: identity.displayName, identity_status: 'verified', updated_at: now }, token);
-    return { ...mapUser(updated[0] ?? rows[0]), email };
-  }
   try {
-    const created = await post('users', [{ id: crypto.randomUUID(), external_auth_subject: identity.userId, email_normalized: email, email_verified_at: now, display_name: identity.displayName, account_status: 'active', identity_status: 'verified', created_at: now, updated_at: now }], token);
-    return { ...mapUser(created[0]), email };
+    const rows = await rdbRpc<Row[]>('ensure_app_user', {
+      email_input: email,
+      display_name_input: identity.displayName,
+      now_input: now,
+    }, token);
+    if (!rows[0]) throw new Error('Account provisioning did not return a user.');
+    return { ...mapUser(rows[0]), email };
   } catch (error) {
     if (!isUniqueError(error)) throw error;
     throw new DomainError('ACCOUNT_CONFLICT', '这个邮箱已关联到另一个账号。', 409);
@@ -37,7 +37,7 @@ export async function getWriterWorkspace(user: AppUser) {
 export async function getProfile(user: AppUser) {
   const token = requireToken(user);
   const [users, pubs, ownSubs] = await Promise.all([
-    table('users', { select: 'id,display_name,avatar_url,bio,profile_completed_at', id: `eq.${user.id}`, limit: '1' }, token),
+    rdbRpc<Row[]>('get_my_profile', {}, token),
     table('publications', { select: 'id,name,handle', owner_user_id: `eq.${user.id}`, limit: '1' }, token),
     table('subscriptions', { select: 'id', subscriber_user_id: `eq.${user.id}`, status: 'eq.active' }, token),
   ]);
@@ -53,12 +53,17 @@ export async function getProfile(user: AppUser) {
 
 export async function updateProfile(user: AppUser, input: ProfileInput) {
   const now = Date.now();
-  await patch('users', { id: `eq.${user.id}` }, { display_name: input.displayName, bio: input.bio, avatar_url: input.avatarUrl, profile_completed_at: now, updated_at: now }, requireToken(user));
+  await rdbRpc('update_my_profile', {
+    display_name_input: input.displayName,
+    bio_input: input.bio,
+    avatar_url_input: input.avatarUrl,
+    now_input: now,
+  }, requireToken(user));
   return getProfile(user);
 }
 export async function skipProfileSetup(user: AppUser) {
   const now = Date.now();
-  await patch('users', { id: `eq.${user.id}` }, { profile_completed_at: now, updated_at: now }, requireToken(user));
+  await rdbRpc('skip_my_profile_setup', { now_input: now }, requireToken(user));
   return getProfile(user);
 }
 
