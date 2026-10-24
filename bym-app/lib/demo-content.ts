@@ -1,4 +1,5 @@
 import { appPath } from '@/lib/app-path';
+import { licensedEssays, type LicensedEssay } from '@/lib/licensed-essay-catalog';
 
 export const demoArticles = {
   craft: {
@@ -66,3 +67,9 @@ export const demoArticles = {
 } as const;
 
 export type DemoArticleSlug = keyof typeof demoArticles;
+export type DemoArticle = (typeof demoArticles)[DemoArticleSlug];
+export type CatalogArticle = DemoArticle | LicensedEssay;
+
+// The discovery feed combines Bym's original demo writing with the collection
+// that has been explicitly licensed for inclusion and Chinese adaptation.
+export const catalogArticles: Record<string, CatalogArticle> = { ...demoArticles, ...licensedEssays };

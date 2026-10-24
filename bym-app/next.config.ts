@@ -8,6 +8,9 @@ const basePath = configuredBasePath
 const nextConfig: NextConfig = {
   basePath,
   output: 'standalone',
+  experimental: {
+    agentUpgrade: 'security',
+  },
 };
 
 export default nextConfig;

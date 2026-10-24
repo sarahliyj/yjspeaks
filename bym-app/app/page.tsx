@@ -21,7 +21,7 @@ import { BrandLogo } from '@/components/brand-logo';
 import { InviteFriend } from '@/components/invite-friend';
 import { authFetch } from '@/lib/cloudbase-client';
 import { appPath } from '@/lib/app-path';
-import { demoArticles } from '@/lib/demo-content';
+import { catalogArticles } from '@/lib/demo-content';
 
 type SessionUser = {
   displayName: string;
@@ -73,14 +73,14 @@ const topicKeywords: Record<string, string[]> = {
   财经: ['财经', '金融', '商业', '经济', '投资', '公司'],
 };
 
-const sampleFeed: FeedArticle[] = Object.values(demoArticles).map((article) => ({
+const sampleFeed: FeedArticle[] = Object.values(catalogArticles).map((article) => ({
   id: `sample-${article.slug}`,
   slug: article.slug,
   title: article.title,
   subtitle: article.subtitle,
   bodyText: article.paragraphs.join(' '),
   coverImageUrl: article.coverImage,
-  publishedAt: new Date(article.published).getTime() || 0,
+  publishedAt: parseChineseDate(article.published),
   publicationName: article.publication,
   publicationHandle: article.handle,
   authorName: article.author,
@@ -431,6 +431,13 @@ function formatPublishedAt(value: number) {
     month: 'long',
     day: 'numeric',
   }).format(new Date(value));
+}
+
+function parseChineseDate(value: string) {
+  const match = value.match(/^(\d{4})年(\d{1,2})月(\d{1,2})日$/);
+  if (!match) return 0;
+  const [, year, month, day] = match;
+  return new Date(Number(year), Number(month) - 1, Number(day)).getTime();
 }
 
 function formatToday() {

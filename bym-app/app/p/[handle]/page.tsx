@@ -2,13 +2,17 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import { BrandLogo } from '@/components/brand-logo';
 import { appPath } from '@/lib/app-path';
-import { demoArticles } from '@/lib/demo-content';
+import { catalogArticles, type CatalogArticle } from '@/lib/demo-content';
+import type { LicensedEssay } from '@/lib/licensed-essay-catalog';
 
 type PageProps = { params: Promise<{ handle: string }> };
+function isLicensedEssay(article: CatalogArticle): article is LicensedEssay {
+  return 'originalTitle' in article;
+}
 
 export default async function PublicationPage({ params }: PageProps) {
   const { handle } = await params;
-  const articles = Object.values(demoArticles).filter((article) => article.handle === handle);
+  const articles = (Object.values(catalogArticles) as CatalogArticle[]).filter((article) => article.handle === handle);
   const lead = articles[0];
   if (!lead) notFound();
 
@@ -24,9 +28,14 @@ export default async function PublicationPage({ params }: PageProps) {
 
       <div className="mx-auto max-w-3xl px-5 pb-20 pt-14 sm:px-8 sm:pt-20">
         <section className="border-b border-border pb-10 text-center">
-          <img src={lead.authorAvatar} alt={`${lead.author}的头像`} className="mx-auto size-20 rounded-full object-cover ring-1 ring-border" />
+          {lead.authorAvatar ? (
+            <img src={lead.authorAvatar} alt={`${lead.author}的头像`} className="mx-auto size-20 rounded-full object-cover ring-1 ring-border" />
+          ) : (
+            <div className="mx-auto grid size-20 place-items-center rounded-full bg-secondary font-serif-cn text-2xl text-muted-foreground ring-1 ring-border">{lead.author.slice(0, 1)}</div>
+          )}
           <h1 className="mt-5 font-serif-cn text-4xl font-semibold tracking-tight">{lead.publication}</h1>
           <p className="mt-2 text-sm text-muted-foreground">由 {lead.author} 写作</p>
+          {isLicensedEssay(lead) && <p className="mt-2 text-xs text-muted-foreground">经授权收录 · 作者资料未认领</p>}
           <p className="mx-auto mt-4 max-w-md text-base leading-7 text-muted-foreground">{lead.subtitle}</p>
           <button className="mt-6 rounded-md bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground">订阅这个刊物</button>
         </section>
@@ -35,7 +44,7 @@ export default async function PublicationPage({ params }: PageProps) {
           <h2 className="text-xs font-semibold tracking-[0.13em] text-muted-foreground">最新文章</h2>
           <div className="mt-3 divide-y divide-border">
             {articles.map((article) => (
-              <a href={`/article/${article.slug}`} key={article.slug} className="group grid gap-5 py-7 sm:grid-cols-[1fr_180px] sm:items-center">
+              <a href={appPath(`/article/${article.slug}`)} key={article.slug} className="group grid gap-5 py-7 sm:grid-cols-[1fr_180px] sm:items-center">
                 <div>
                   <p className="text-xs text-muted-foreground">{article.published} · {article.readingTime}</p>
                   <h3 className="mt-2 font-serif-cn text-2xl font-semibold group-hover:text-accent-foreground">{article.title}</h3>
