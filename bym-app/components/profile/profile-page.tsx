@@ -32,11 +32,20 @@ type Article = {
   publicationHandle: string;
 };
 
-type ProfilePayload = { profile: Profile; articles: Article[]; error?: { message?: string } };
+type Subscription = {
+  id: string;
+  name: string;
+  handle: string;
+  authorName: string;
+};
+
+type ProfilePayload = { profile: Profile; articles: Article[]; subscriptions: Subscription[]; error?: { message?: string } };
 
 export function ProfilePage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [articles, setArticles] = useState<Article[]>([]);
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
+  const [activeTab, setActiveTab] = useState<'articles' | 'subscriptions'>('articles');
   const [editing, setEditing] = useState(false);
   const [displayName, setDisplayName] = useState('');
   const [bio, setBio] = useState('');
@@ -58,6 +67,7 @@ export function ProfilePage() {
   function applyPayload(payload: ProfilePayload) {
     setProfile(payload.profile);
     setArticles(payload.articles ?? []);
+    setSubscriptions(payload.subscriptions ?? []);
     setDisplayName(payload.profile.displayName);
     setBio(payload.profile.bio || '');
     setAvatarUrl(payload.profile.avatarUrl || '');
@@ -120,7 +130,7 @@ export function ProfilePage() {
   }
 
   if (!profile) return <p className="p-8 text-sm text-muted-foreground">正在载入…</p>;
-  const handle = profile.email.split('@')[0];
+  const handle = profile.publicationHandle || profile.email.split('@')[0];
 
   return (
     <main className="min-h-screen bg-background text-foreground">
@@ -152,11 +162,11 @@ export function ProfilePage() {
         </div>
 
         <div className="flex gap-8 border-b border-border text-sm font-semibold">
-          <span className="border-b-2 border-foreground px-1 py-4">文章</span>
-          <span className="px-1 py-4 text-muted-foreground">订阅（{profile.subscriptionCount || 0}）</span>
+          <button type="button" onClick={() => setActiveTab('articles')} className={`px-1 py-4 ${activeTab === 'articles' ? 'border-b-2 border-foreground' : 'text-muted-foreground'}`}>文章</button>
+          <button type="button" onClick={() => setActiveTab('subscriptions')} className={`px-1 py-4 ${activeTab === 'subscriptions' ? 'border-b-2 border-foreground' : 'text-muted-foreground'}`}>订阅（{profile.subscriptionCount || 0}）</button>
         </div>
 
-        <section className="divide-y divide-border">
+        {activeTab === 'articles' ? <section className="divide-y divide-border">
           {articles.map((article) => (
             <a key={article.id} href={appPath(`/p/${article.publicationHandle}/${article.slug}`)} className="grid gap-5 py-7 sm:grid-cols-[1fr_170px] sm:items-center">
               <div>
@@ -174,7 +184,18 @@ export function ProfilePage() {
               <a href={appPath('/write')} className="mt-5 inline-flex h-10 items-center rounded-md border border-border px-4 text-sm font-semibold">开始写作</a>
             </div>
           )}
-        </section>
+        </section> : <section className="divide-y divide-border">
+          {subscriptions.map((subscription) => (
+            <a key={subscription.id} href={appPath(`/p/${subscription.handle}`)} className="flex items-center justify-between gap-5 py-6">
+              <div>
+                <h2 className="font-serif-cn text-xl font-semibold">{subscription.name}</h2>
+                <p className="mt-1 text-sm text-muted-foreground">{subscription.authorName}</p>
+              </div>
+              <span className="text-sm text-primary">查看</span>
+            </a>
+          ))}
+          {subscriptions.length === 0 && <p className="py-16 text-center text-sm text-muted-foreground">还没有订阅</p>}
+        </section>}
       </div>
 
       {editing && (

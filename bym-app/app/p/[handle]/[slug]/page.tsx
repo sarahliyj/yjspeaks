@@ -42,7 +42,7 @@ export default async function PublicationArticlePage({ params }: PageProps) {
       </header>
 
       <article className="mx-auto max-w-[720px] px-6 pb-24 pt-14 sm:pt-20">
-        <a href={`/p/${article.publicationHandle}`} className="text-xs font-semibold tracking-[0.14em] text-accent-foreground hover:underline">{article.publicationName}</a>
+        <a href={appPath(`/p/${article.publicationHandle}`)} className="text-xs font-semibold tracking-[0.14em] text-accent-foreground hover:underline">{article.publicationName}</a>
         <h1 className="mt-5 font-serif-cn text-[2.35rem] font-semibold leading-[1.22] tracking-[-0.035em] sm:text-[3.65rem]">{article.title}</h1>
         {article.subtitle && <p className="mt-5 text-lg leading-8 text-muted-foreground sm:text-xl">{article.subtitle}</p>}
 
@@ -59,7 +59,7 @@ export default async function PublicationArticlePage({ params }: PageProps) {
             <span className="grid size-11 place-items-center rounded-full bg-secondary font-serif-cn font-semibold text-accent-foreground">{article.authorName.slice(0, 1)}</span>
           )}
           <div>
-            <p className="text-sm font-medium">{article.authorName}</p>
+            <a href={appPath(`/p/${article.publicationHandle}`)} className="text-sm font-medium hover:underline">{article.authorName}</a>
             <p className="mt-0.5 text-xs text-muted-foreground">{formatDate(article.publishedAt)}</p>
           </div>
         </div>

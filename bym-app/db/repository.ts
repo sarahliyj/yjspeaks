@@ -39,7 +39,7 @@ export async function getProfile(user: AppUser) {
   const [users, pubs, ownSubs] = await Promise.all([
     rdbRpc<Row[]>('get_my_profile', {}, token),
     table('publications', { select: 'id,name,handle', owner_user_id: `eq.${user.id}`, limit: '1' }, token),
-    table('subscriptions', { select: 'id', subscriber_user_id: `eq.${user.id}`, status: 'eq.active' }, token),
+    table('subscriptions', { select: 'id,publication:publications!subscriptions_publication_id_fkey(id,name,handle,owner:users!publications_owner_user_id_fkey(display_name))', subscriber_user_id: `eq.${user.id}`, status: 'eq.active', order: 'updated_at.desc' }, token),
   ]);
   if (!users[0]) throw new DomainError('PROFILE_NOT_FOUND', '没有找到账号资料。', 404);
   const pub = pubs[0];
@@ -48,7 +48,15 @@ export async function getProfile(user: AppUser) {
     table('articles', { select: ARTICLE_SELECT, author_user_id: `eq.${user.id}`, status: 'eq.published', order: 'published_at.desc', limit: '30' }, token),
   ]);
   const row = users[0];
-  return { profile: { id: str(row.id), email: user.email, displayName: str(row.display_name), avatarUrl: str(row.avatar_url), bio: str(row.bio), profileCompletedAt: nullableNum(row.profile_completed_at), publicationId: pub ? str(pub.id) : null, publicationName: pub ? str(pub.name) : null, publicationHandle: pub ? str(pub.handle) : null, subscriberCount: followers.length, subscriptionCount: ownSubs.length }, articles: articles.map(mapFeed) };
+  return {
+    profile: { id: str(row.id), email: user.email, displayName: str(row.display_name), avatarUrl: str(row.avatar_url), bio: str(row.bio), profileCompletedAt: nullableNum(row.profile_completed_at), publicationId: pub ? str(pub.id) : null, publicationName: pub ? str(pub.name) : null, publicationHandle: pub ? str(pub.handle) : null, subscriberCount: followers.length, subscriptionCount: ownSubs.length },
+    articles: articles.map(mapFeed),
+    subscriptions: ownSubs.map((subscription) => {
+      const publication = relation(subscription.publication);
+      const owner = relation(publication.owner);
+      return { id: str(publication.id), name: str(publication.name), handle: str(publication.handle), authorName: str(owner.display_name) };
+    }),
+  };
 }
 
 export async function updateProfile(user: AppUser, input: ProfileInput) {
@@ -146,6 +154,36 @@ export async function getSubscriptions(user: AppUser) {
 export async function getPublicArticle(publicationHandle: string, slug: string) {
   const rows = await table('articles', { select: ARTICLE_SELECT, slug: `eq.${slug}`, status: 'eq.published', 'publication.handle': `eq.${publicationHandle}`, limit: '1' });
   return rows[0] ? mapPublished(rows[0]) : null;
+}
+
+export async function getPublicProfile(publicationHandle: string) {
+  const publications = await table('publications', {
+    select: 'id,name,handle,description,owner:users!publications_owner_user_id_fkey(display_name,avatar_url,bio)',
+    handle: `eq.${publicationHandle}`,
+    status: 'eq.active',
+    limit: '1',
+  });
+  const publication = publications[0];
+  if (!publication) return null;
+  const owner = relation(publication.owner);
+  const articles = await table('articles', {
+    select: ARTICLE_SELECT,
+    publication_id: `eq.${str(publication.id)}`,
+    status: 'eq.published',
+    order: 'published_at.desc',
+    limit: '50',
+  });
+  return {
+    profile: {
+      displayName: str(owner.display_name),
+      avatarUrl: str(owner.avatar_url),
+      bio: str(owner.bio),
+      publicationName: str(publication.name),
+      publicationHandle: str(publication.handle),
+      publicationDescription: str(publication.description),
+    },
+    articles: articles.map(mapFeed),
+  };
 }
 
 async function ownedPublication(user: AppUser) {

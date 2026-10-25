@@ -7,7 +7,7 @@ export async function GET(request: Request) {
     const requestedLimit = Number(url.searchParams.get('limit') ?? '50');
     const limit = Number.isFinite(requestedLimit) ? requestedLimit : 50;
     const articles = await getDiscoverArticles(limit);
-    return Response.json({ articles });
+    return Response.json({ articles }, { headers: { 'cache-control': 'no-store' } });
   } catch (error) {
     return errorResponse(error);
   }

@@ -102,7 +102,7 @@ export function FeedPage({ view = 'home' }: { view?: 'home' | 'inbox' }) {
 
     async function loadAccount() {
       try {
-        const meResponse = await authFetch('/api/me');
+        const meResponse = await authFetch('/api/session', { cache: 'no-store' });
         if (!meResponse.ok) throw new Error('AUTH_REQUIRED');
         const me = (await meResponse.json()) as { user: SessionUser };
         const [inboxResponse, subscriptionsResponse] = await Promise.all([
@@ -130,7 +130,7 @@ export function FeedPage({ view = 'home' }: { view?: 'home' | 'inbox' }) {
     }
 
     void loadAccount();
-    fetch(appPath('/api/discover?limit=50'))
+    fetch(appPath(`/api/discover?limit=50&t=${Date.now()}`), { cache: 'no-store' })
       .then(async (response) => response.ok ? await response.json() as { articles?: InboxArticle[] } : Promise.reject())
       .then((payload) => {
         if (!active || !Array.isArray(payload.articles)) return;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 import { BrandLogo } from '@/components/brand-logo';
 import { appPath } from '@/lib/app-path';
@@ -17,6 +17,11 @@ export function AccountForm({ initialMode = 'login' }: { initialMode?: 'login' |
   const [loginWithCode, setLoginWithCode] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
+
+  useEffect(() => {
+    if (window.location.hostname !== 'bym-app.vercel.app') return;
+    window.location.replace(`https://yjspeaks.com${appPath(initialMode === 'signup' ? '/signup' : '/login')}${window.location.search}`);
+  }, [initialMode]);
 
   function returnTo() {
     const value = new URLSearchParams(window.location.search).get('returnTo');
