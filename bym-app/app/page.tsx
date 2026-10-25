@@ -73,7 +73,9 @@ const topicKeywords: Record<string, string[]> = {
   财经: ['财经', '金融', '商业', '经济', '投资', '公司'],
 };
 
-const sampleFeed: FeedArticle[] = Object.values(catalogArticles).map((article) => ({
+const sampleFeed: FeedArticle[] = Object.values(catalogArticles)
+  .sort((left, right) => Number(isCompleteTranslation(right)) - Number(isCompleteTranslation(left)))
+  .map((article) => ({
   id: `sample-${article.slug}`,
   slug: article.slug,
   title: article.title,
@@ -86,7 +88,11 @@ const sampleFeed: FeedArticle[] = Object.values(catalogArticles).map((article) =
   authorName: article.author,
   authorAvatar: article.authorAvatar,
   href: appPath(`/article/${article.slug}`),
-}));
+  }));
+
+function isCompleteTranslation(article: (typeof catalogArticles)[string]) {
+  return 'translationComplete' in article && article.translationComplete === true;
+}
 
 export function FeedPage({ view = 'home' }: { view?: 'home' | 'inbox' }) {
   const isInbox = view === 'inbox';
