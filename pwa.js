@@ -45,4 +45,40 @@
     if (installButton) installButton.hidden = true;
     setHint('YJ Speaks is installed · 已添加到你的主屏幕');
   });
+
+  const newsletterForm = document.getElementById('email-form');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', async event => {
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      const emailField = document.getElementById('subscriber-email');
+      const status = document.getElementById('status');
+      const submitButton = newsletterForm.querySelector('button[type="submit"]');
+      const email = emailField?.value.trim();
+
+      if (!email) return;
+
+      if (status) status.textContent = '正在保存你的订阅…';
+      if (submitButton) submitButton.disabled = true;
+
+      try {
+        const response = await fetch('https://mojian-reading.eagerrice32.chatgpt.site/api/newsletter/subscribe', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify({ email, website: '' }),
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok) throw new Error(payload?.error?.message || '订阅暂时无法完成。');
+
+        if (status) status.textContent = '邮箱已保存。请完成下方支付。'; const payment = document.getElementById('payment-step'); if (payment) { payment.hidden = false; payment.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        newsletterForm.reset();
+      } catch (error) {
+        if (status) status.textContent = error instanceof Error ? error.message : '订阅暂时无法完成，请稍后再试。';
+      } finally {
+        if (submitButton) submitButton.disabled = false;
+      }
+    }, true);
+  }
 })();
