@@ -63,7 +63,9 @@
       if (submitButton) submitButton.disabled = true;
 
       try {
-        const response = await fetch('https://mojian-reading.eagerrice32.chatgpt.site/api/newsletter/subscribe', {
+        // Keep this same-origin. The /bym proxy routes this request to Bym's
+        // production API, so it keeps working even if Bym's deployment URL changes.
+        const response = await fetch('/bym/api/newsletter/subscribe', {
           method: 'POST',
           headers: { 'content-type': 'application/json' },
           body: JSON.stringify({ email, website: '' }),
